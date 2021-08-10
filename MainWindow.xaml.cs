@@ -22,9 +22,9 @@ namespace Trigonometrics {
         public MainWindow() {
             InitializeComponent();
         }
-        private static double CenterX = 200;
-        private static double CenterY = 200;
-        private static double ZoomFactor = 1;
+        public static double CenterX = 200;
+        public static double CenterY = 200;
+        public static double ZoomFactor = 1;
 
         private void GenerateCanvasDrawing(double alpha, bool showTanHelp, bool tanRight/*, bool showCot, bool cotUp*/) {
             mainCanvas.Children.Clear();
@@ -55,7 +55,7 @@ namespace Trigonometrics {
                 StrokeThickness = 3
             };
             mainCanvas.Children.Add(baseLine);
-
+            
             // Secondary Line
             Line secLine = new Line() {
                 X1 = CenterX,
