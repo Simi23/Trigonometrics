@@ -22,8 +22,11 @@ namespace Trigonometrics {
         public MainWindow() {
             InitializeComponent();
         }
+        private static double CenterX = 200;
+        private static double CenterY = 200;
+        private static double ZoomFactor = 1;
 
-        private void GenerateCanvasDrawing(double alpha, bool showTan, bool tanRight) {
+        private void GenerateCanvasDrawing(double alpha, bool showTanHelp, bool tanRight/*, bool showCot, bool cotUp*/) {
             mainCanvas.Children.Clear();
 
             // Main Circle
@@ -35,17 +38,19 @@ namespace Trigonometrics {
             };
             mainCanvas.Children.Add(circle);
             Canvas.SetZIndex(circle, 0);
+            Canvas.SetLeft(circle, CenterX - 100);
+            Canvas.SetTop(circle, CenterY - 100);
 
             circle.MouseEnter += Circle_MouseEnter;
             circle.MouseLeave += Circle_MouseLeave;
 
             // Base Line
             Line baseLine = new Line() {
-                X1 = 100,
-                Y1 = 100,
+                X1 = CenterX,
+                Y1 = CenterY,
 
-                X2 = 200,
-                Y2 = 100,
+                X2 = CenterX + 100,
+                Y2 = CenterY,
                 Stroke = Brushes.Blue,
                 StrokeThickness = 3
             };
@@ -53,11 +58,11 @@ namespace Trigonometrics {
 
             // Secondary Line
             Line secLine = new Line() {
-                X1 = 100,
-                Y1 = 100,
+                X1 = CenterX,
+                Y1 = CenterY,
 
-                X2 = 100 + Math.Cos(alpha) * 100,
-                Y2 = 100 - Math.Sin(alpha) * 100,
+                X2 = CenterX + Math.Cos(alpha) * 100,
+                Y2 = CenterY - Math.Sin(alpha) * 100,
                 Stroke = Brushes.Blue,
                 StrokeThickness = 3
             };
@@ -66,10 +71,10 @@ namespace Trigonometrics {
             // Coord line x
             Line coordLineX = new Line() {
                 X1 = 0,
-                Y1 = 100,
+                Y1 = CenterY,
 
-                X2 = 200,
-                Y2 = 100,
+                X2 = mainCanvas.ActualWidth,
+                Y2 = CenterY,
                 Stroke = Brushes.Gray,
                 StrokeDashArray = new DoubleCollection() { 6, 1 },
                 StrokeThickness = 2
@@ -79,11 +84,11 @@ namespace Trigonometrics {
 
             // Coord line y
             Line coordLineY = new Line() {
-                X1 = 100,
+                X1 = CenterX,
                 Y1 = 0,
 
-                X2 = 100,
-                Y2 = 200,
+                X2 = CenterX,
+                Y2 = mainCanvas.ActualHeight,
                 Stroke = Brushes.Gray,
                 StrokeDashArray = new DoubleCollection() { 6, 1 },
                 StrokeThickness = 2
@@ -93,11 +98,11 @@ namespace Trigonometrics {
 
             // sinLine
             Line sinLine = new Line() {
-                X1 = 100 + Math.Cos(alpha) * 100,
-                Y1 = 100,
+                X1 = CenterX + Math.Cos(alpha) * 100,
+                Y1 = CenterY,
 
-                X2 = 100 + Math.Cos(alpha) * 100,
-                Y2 = 100 - Math.Sin(alpha) * 100,
+                X2 = CenterX + Math.Cos(alpha) * 100,
+                Y2 = CenterY - Math.Sin(alpha) * 100,
                 Stroke = Brushes.Red,
                 StrokeThickness = 3
             };
@@ -106,11 +111,11 @@ namespace Trigonometrics {
 
             // cosLine
             Line cosLine = new Line() {
-                X1 = 100,
-                Y1 = 100 - Math.Sin(alpha) * 100,
+                X1 = CenterX,
+                Y1 = CenterY - Math.Sin(alpha) * 100,
 
-                X2 = 100 + Math.Cos(alpha) * 100,
-                Y2 = 100 - Math.Sin(alpha) * 100,
+                X2 = CenterX + Math.Cos(alpha) * 100,
+                Y2 = CenterY - Math.Sin(alpha) * 100,
                 Stroke = Brushes.SlateBlue,
                 StrokeThickness = 3
             };
@@ -118,41 +123,46 @@ namespace Trigonometrics {
             Canvas.SetZIndex(cosLine, 1);
 
             // tan line
-            if (showTan) {
-                // Main line
-                Brush tanBrush = Math.Tan(alpha) >= 0 ? Brushes.OrangeRed : Brushes.CornflowerBlue;
-                double tanX1, tanX2, tanY1, tanY2;
+            // Main line
+            Brush tanBrush = Math.Tan(alpha) >= 0 ? Brushes.OrangeRed : Brushes.CornflowerBlue;
+            double tanX1, tanX2, tanY1, tanY2;
 
-                double tan = tanRight ? Math.Tan(alpha) : Math.Tan(alpha) * -1;
+            double tan = tanRight ? Math.Tan(alpha) : Math.Tan(alpha) * -1;
 
-                if (tanRight) {
-                    tanX1 = 200;
-                    tanY1 = 100;
-                    tanX2 = 200;
-                    tanY2 = 100 - tan * 100;
-                } else {
-                    tanX1 = 0;
-                    tanY1 = 100;
-                    tanX2 = 0;
-                    tanY2 = 100 - tan * 100;
-                }
+            if (tanRight) {
+                tanX1 = CenterX + 100;
+                tanY1 = CenterY;
+                tanX2 = CenterX + 100;
+                tanY2 = CenterY - tan * 100;
+            } else {
+                tanX1 = CenterX - 100;
+                tanY1 = CenterY;
+                tanX2 = CenterX - 100;
+                tanY2 = CenterY - tan * 100;
+            }
 
-                Line tanLine = new Line() {
-                    X1 = tanX1,
-                    Y1 = tanY1,
+            if (Math.Abs(ConvertToDegrees(alpha)) % 180 - 90 == 0)
+            {
+                tanY2 = Math.Min(mainCanvas.ActualHeight, Math.Max(0, tanY2));
+            }
 
-                    X2 = tanX2,
-                    Y2 = tanY2,
-                    Stroke = tanBrush,
-                    StrokeThickness = 3
-                };
-                mainCanvas.Children.Add(tanLine);
-                Canvas.SetZIndex(tanLine, 1);
+            Line tanLine = new Line() {
+                X1 = tanX1,
+                Y1 = tanY1,
 
+                X2 = tanX2,
+                Y2 = tanY2,
+                Stroke = tanBrush,
+                StrokeThickness = 3
+            };
+            mainCanvas.Children.Add(tanLine);
+            Canvas.SetZIndex(tanLine, 1);
+
+            if (showTanHelp) {
                 // Helper line
                 Line tanHelper = new Line() {
-                    X1 = 100,
-                    Y1 = 100,
+                    X1 = CenterX,
+                    Y1 = CenterY,
 
                     X2 = tanX2,
                     Y2 = tanY2,
@@ -205,7 +215,7 @@ namespace Trigonometrics {
                 lb_v_tg.Content = Math.Round(Math.Tan(rad), roundDecimals);
                 lb_v_ctg.Content = Math.Round(1 / Math.Tan(rad), roundDecimals);
 
-                GenerateCanvasDrawing(rad, DetermineShowTan(angle), DetermineRightSide(angle));
+                GenerateCanvasDrawing(rad, DetermineShowTanHelper(angle), DetermineTanRight(angle));
 
             } else if (angleInput.Text.Length == 0) {
                 angleInput.BorderBrush = System.Windows.Media.Brushes.LightBlue;
@@ -231,28 +241,47 @@ namespace Trigonometrics {
             return (Math.PI / 180) * angle;
         }
 
-        public bool DetermineRightSide(double angle) {
-            if (Math.Abs(angle) % 90 == 0)
-                return false;
+        public double ConvertToDegrees(double radian)
+        {
+            return radian / (Math.PI / 180);
+        }
 
+        public bool DetermineTanRight(double angle) {
             double tempAngle = angle % 360;
             if(tempAngle < 0) {
                 tempAngle += 360;
             }
 
-            if (tempAngle < 90) {
+           if (tempAngle <= 90)
+            {
                 return true;
-            } else if (tempAngle < 180) {
+            }
+            else if (tempAngle < 180)
+            {
                 return false;
-            } else if (tempAngle < 270) {
+            }
+            else if (tempAngle <= 270)
+            {
                 return false;
-            } else {
+            }
+            else
+            {
                 return true;
             }
         }
 
-        public bool DetermineShowTan(double angle) {
+        public bool DetermineShowTanHelper(double angle) {
             return Math.Abs(angle) % 90 != 0;
+        }
+
+        public bool DetermineCotUp(double angle)
+        {
+            return false;
+        }
+
+        public bool DetermineShowCot(double angle)
+        {
+            return false;
         }
     }
 }

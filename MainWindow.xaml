@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Trigonometrics"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="546" Width="983">
     <Grid>
         <TextBox x:Name="angleInput" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="angleInput_TextChanged"/>
         <Label x:Name="lb_sin" Content="Szinusz:" HorizontalAlignment="Left" Margin="139,9,0,0" VerticalAlignment="Top"/>
@@ -16,7 +16,10 @@
         <Label x:Name="lb_v_cos" Content="" HorizontalAlignment="Left" Margin="232,40,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lb_v_tg" Content="" HorizontalAlignment="Left" Margin="232,71,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lb_v_ctg" Content="" HorizontalAlignment="Left" Margin="232,102,0,0" VerticalAlignment="Top"/>
-        <Canvas x:Name="mainCanvas" HorizontalAlignment="Left" Height="370" Margin="387,10,0,0" VerticalAlignment="Top" Width="370"/>
-
+        <Border  HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="387,10,0,0" Height="400" Width="400" BorderBrush="Gray" BorderThickness="2">
+            <StackPanel HorizontalAlignment="Left" Height="400" Margin="0,0,0,0" VerticalAlignment="Top" Width="400" ClipToBounds="True">
+                <Canvas x:Name="mainCanvas" HorizontalAlignment="Left" Height="400" Margin="0,0,0,0" VerticalAlignment="Top" Width="400"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>
