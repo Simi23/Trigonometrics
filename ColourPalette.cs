@@ -8,8 +8,11 @@ using System.Windows.Shapes;
 
 namespace Trigonometrics
 {
-    interface MathDefinition
+    public class ColourPalette
     {
-        Dictionary<Shape, ShapeParams> ShapeCollection(double CenterX, double CenterY, double alpha, double deg, double CanvasWidth, double CanvasHeight);
+        public static Brush BrushRGB(byte r, byte g, byte b)
+        {
+            return new SolidColorBrush(Color.FromRgb(r, g, b));
+        }
     }
 }
