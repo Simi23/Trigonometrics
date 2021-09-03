@@ -27,7 +27,7 @@ namespace Trigonometrics {
         public static double ZoomFactor = 1;
         
 
-        private void GenerateCanvasDrawing(double alpha, bool showTanHelp, bool tanRight/*, bool showCot, bool cotUp*/) {
+        private void GenerateCanvasDrawing(double alpha) {
             mainCanvas.Children.Clear();
 
             List<MathDefinition> shapesToDraw = new List<MathDefinition>() {
@@ -75,7 +75,7 @@ namespace Trigonometrics {
                 lb_v_tg.Content = Math.Round(Math.Tan(rad), roundDecimals);
                 lb_v_ctg.Content = Math.Round(1 / Math.Tan(rad), roundDecimals);
 
-                GenerateCanvasDrawing(rad, DetermineShowTanHelper(angle), DetermineTanRight(angle));
+                GenerateCanvasDrawing(rad);
 
             } else if (angleInput.Text.Length == 0) {
                 angleInput.BorderBrush = System.Windows.Media.Brushes.LightBlue;
@@ -104,44 +104,6 @@ namespace Trigonometrics {
         public double ConvertToDegrees(double radian)
         {
             return radian / (Math.PI / 180);
-        }
-
-        public bool DetermineTanRight(double angle) {
-            double tempAngle = angle % 360;
-            if(tempAngle < 0) {
-                tempAngle += 360;
-            }
-
-           if (tempAngle <= 90)
-            {
-                return true;
-            }
-            else if (tempAngle < 180)
-            {
-                return false;
-            }
-            else if (tempAngle <= 270)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        public bool DetermineShowTanHelper(double angle) {
-            return Math.Abs(angle) % 90 != 0;
-        }
-
-        public bool DetermineCotUp(double angle)
-        {
-            return false;
-        }
-
-        public bool DetermineShowCot(double angle)
-        {
-            return false;
         }
     }
 }
