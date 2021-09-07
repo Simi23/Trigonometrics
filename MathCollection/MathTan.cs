@@ -25,11 +25,15 @@ namespace Trigonometrics.MathCollection
             Dictionary<Shape, ShapeParams> shapeCollection = new Dictionary<Shape, ShapeParams>();
 
             bool tanRight = DetermineTanRight(deg);
-            bool showTanHelp = DetermineShowTanHelper(deg);
+            bool showTan = DetermineShowTan(deg);
             
             double tanX1, tanX2, tanY1, tanY2;
 
             double tan = tanRight ? Math.Tan(alpha) : Math.Tan(alpha) * -1;
+
+            if (!showTan) {
+                return shapeCollection;
+            }
 
             if (tanRight) {
                 tanX1 = CenterX + 100;
@@ -63,25 +67,24 @@ namespace Trigonometrics.MathCollection
             };
             shapeCollection.Add(tanLineShape, tanLineDef);
 
-            if (showTanHelp) {
-                // Helper line
-                Line tanHelperShape = new Line()
-                {
-                    X1 = CenterX,
-                    Y1 = CenterY,
+            // Helper line
+            Line tanHelperShape = new Line()
+            {
+                X1 = CenterX,
+                Y1 = CenterY,
 
-                    X2 = tanX2,
-                    Y2 = tanY2,
-                    Stroke = Brushes.Gray,
-                    StrokeDashArray = new DoubleCollection() { 6, 3 },
-                    StrokeThickness = 1
-                };
-                ShapeParams tanHelperDef = new ShapeParams()
-                {
-                    IndexZ = -1
-                };
-                shapeCollection.Add(tanHelperShape, tanHelperDef);
-            }
+                X2 = tanX2,
+                Y2 = tanY2,
+                Stroke = Brushes.Gray,
+                StrokeDashArray = new DoubleCollection() { 6, 3 },
+                StrokeThickness = 1
+            };
+            ShapeParams tanHelperDef = new ShapeParams()
+            {
+                IndexZ = -1
+            };
+            shapeCollection.Add(tanHelperShape, tanHelperDef);
+            
 
             return shapeCollection;
         }
@@ -107,7 +110,7 @@ namespace Trigonometrics.MathCollection
             }
         }
 
-        public bool DetermineShowTanHelper(double angle)
+        public bool DetermineShowTan(double angle)
         {
             return Math.Abs(angle) % 90 != 0;
         }

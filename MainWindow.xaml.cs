@@ -70,10 +70,13 @@ namespace Trigonometrics {
 
                 int roundDecimals = 4;
 
+                string tan = angle % 180 == 90 ? "-" : Math.Round(Math.Tan(rad), roundDecimals).ToString();
+                string cot = angle % 180 == 0 ? "-" : Math.Round(1 / Math.Tan(rad), roundDecimals).ToString();
+
                 lb_v_sin.Content = Math.Round(Math.Sin(rad), roundDecimals);
                 lb_v_cos.Content = Math.Round(Math.Cos(rad), roundDecimals);
-                lb_v_tg.Content = Math.Round(Math.Tan(rad), roundDecimals);
-                lb_v_ctg.Content = Math.Round(1 / Math.Tan(rad), roundDecimals);
+                lb_v_tg.Content = tan;
+                lb_v_ctg.Content = cot;
 
                 GenerateCanvasDrawing(rad);
 

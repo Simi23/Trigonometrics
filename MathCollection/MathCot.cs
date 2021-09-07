@@ -25,12 +25,16 @@ namespace Trigonometrics.MathCollection
             Dictionary<Shape, ShapeParams> shapeCollection = new Dictionary<Shape, ShapeParams>();
 
             bool cotUp = DetermineCotUp(deg);
-            bool showCotHelp = DetermineShowCotHelper(deg);
+            bool showCot = DetermineShowCot(deg);
 
             Brush tanBrush = Math.Tan(alpha) >= 0 ? Brushes.OrangeRed : Brushes.CornflowerBlue;
             double cotX1, cotX2, cotY1, cotY2;
 
             double cot = cotUp ? 1 / Math.Tan(alpha) : -1 / Math.Tan(alpha);
+
+            if (!showCot) {
+                return shapeCollection;
+            }
 
             if (cotUp) {
                 cotX1 = CenterX;
@@ -65,25 +69,24 @@ namespace Trigonometrics.MathCollection
             };
             shapeCollection.Add(cotLineShape, cotLineDef);
 
-            if (showCotHelp) {
-                // Helper line
-                Line tanHelperShape = new Line()
-                {
-                    X1 = CenterX,
-                    Y1 = CenterY,
+            // Helper line
+            Line tanHelperShape = new Line()
+            {
+                X1 = CenterX,
+                Y1 = CenterY,
 
-                    X2 = cotX2,
-                    Y2 = cotY2,
-                    Stroke = Brushes.Gray,
-                    StrokeDashArray = new DoubleCollection() { 6, 3 },
-                    StrokeThickness = 1
-                };
-                ShapeParams tanHelperDef = new ShapeParams()
-                {
-                    IndexZ = -1
-                };
-                shapeCollection.Add(tanHelperShape, tanHelperDef);
-            }
+                X2 = cotX2,
+                Y2 = cotY2,
+                Stroke = Brushes.Gray,
+                StrokeDashArray = new DoubleCollection() { 6, 3 },
+                StrokeThickness = 1
+            };
+            ShapeParams tanHelperDef = new ShapeParams()
+            {
+                IndexZ = -1
+            };
+            shapeCollection.Add(tanHelperShape, tanHelperDef);
+            
 
             return shapeCollection;
         }
@@ -109,7 +112,7 @@ namespace Trigonometrics.MathCollection
             }
         }
 
-        public bool DetermineShowCotHelper(double angle)
+        public bool DetermineShowCot(double angle)
         {
             return Math.Abs(angle) % 90 != 0;
         }
