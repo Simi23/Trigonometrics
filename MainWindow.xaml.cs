@@ -19,16 +19,49 @@ namespace Trigonometrics {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
-        public MainWindow() {
-            InitializeComponent();
-        }
+        
         public static double CenterX = 200;
         public static double CenterY = 200;
         public static double ZoomFactor = 1;
         
+        public MainWindow() {
+            InitializeComponent();
+
+            mainCanvas.MouseMove += DragKnob_MouseMove;
+        }        
 
         private void GenerateCanvasDrawing(double alpha) {
-            mainCanvas.Children.Clear();
+            bool knobExists = false;
+            Ellipse dragKnob = new Ellipse();
+            List<UIElement> deleteList = new List<UIElement>();
+            foreach (UIElement element in mainCanvas.Children) {
+                if (element.Uid != "dragKnob") {
+                    deleteList.Add(element);
+                } else {
+                    knobExists = true;
+                    dragKnob = (Ellipse)element;
+                }
+            }
+            foreach (UIElement element in deleteList) {
+                mainCanvas.Children.Remove(element);
+            }
+            if (!knobExists) {
+                dragKnob = new Ellipse()
+                {
+                    Width = 8,
+                    Height = 8,
+                    Stroke = ColourPalette.BrushRGB(20, 20, 20),
+                    StrokeThickness = 1,
+                    Fill = ColourPalette.BrushRGB(220, 220, 220),
+                    Uid = "dragKnob",
+                    Cursor = Cursors.Hand
+                };
+                mainCanvas.Children.Add(dragKnob);
+                //dragKnob.MouseMove += DragKnob_MouseMove;
+            }
+            Canvas.SetLeft(dragKnob, CenterX + Math.Cos(alpha) * 100 - 4);
+            Canvas.SetTop(dragKnob, CenterY - Math.Sin(alpha) * 100 - 4);
+            Canvas.SetZIndex(dragKnob, 10);
 
             List<MathDefinition> shapesToDraw = new List<MathDefinition>() {
                 new MathCollection.Basics(),
@@ -58,6 +91,17 @@ namespace Trigonometrics {
                     Canvas.SetZIndex(shape, shapeParam.IndexZ);
                 }
             }
+        }
+
+        private void DragKnob_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point mp = Mouse.GetPosition(mainCanvas);
+            double a = CenterY - mp.Y;
+            double b = mp.X - CenterX;
+            double alpha = Math.Atan(a / b);
+
+            GenerateCanvasDrawing(alpha);
+            Console.WriteLine($"Angle: {ConvertToDegrees(alpha)}");
         }
 
         private void angleInput_TextChanged(object sender, TextChangedEventArgs e) {
