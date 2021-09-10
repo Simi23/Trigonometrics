@@ -22,6 +22,10 @@ namespace Trigonometrics.MathCollection
         {
             Dictionary<Shape, ShapeParams> shapeCollection = new Dictionary<Shape, ShapeParams>();
 
+            if (!MainWindow.ShowCot) {
+                return shapeCollection;
+            }
+
             bool cotUp = DetermineCotUp(deg);
             bool showCot = DetermineShowCot(deg);
 

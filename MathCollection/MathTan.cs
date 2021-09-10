@@ -24,6 +24,10 @@ namespace Trigonometrics.MathCollection
         {
             Dictionary<Shape, ShapeParams> shapeCollection = new Dictionary<Shape, ShapeParams>();
 
+            if (!MainWindow.ShowTan) {
+                return shapeCollection;
+            }
+
             bool tanRight = DetermineTanRight(deg);
             bool showTan = DetermineShowTan(deg);
             

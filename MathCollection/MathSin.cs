@@ -24,6 +24,10 @@ namespace Trigonometrics.MathCollection
         {
             Dictionary<Shape, ShapeParams> shapeCollection = new Dictionary<Shape, ShapeParams>();
 
+            if (!MainWindow.ShowSin) {
+                return shapeCollection;
+            }
+
             Line sinShape = new Line()
             {
                 X1 = CenterX,

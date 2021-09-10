@@ -24,6 +24,10 @@ namespace Trigonometrics.MathCollection
         {
             Dictionary<Shape, ShapeParams> shapeCollection = new Dictionary<Shape, ShapeParams>();
 
+            if (!MainWindow.ShowCos) {
+                return shapeCollection;
+            }
+
             Line cosShape = new Line()
             {
                 X1 = CenterX,

@@ -24,14 +24,75 @@ namespace Trigonometrics {
         public static double CenterY = 200;
         public static double ZoomFactor = 1;
 
+        public static bool ShowSin = true;
+        public static bool ShowCos = true;
+        public static bool ShowTan = true;
+        public static bool ShowCot = true;
+
         private static bool IsDragging = false;
         private static bool ChangedByDrag = false;
+        private static double Alpha = 0;
         
         public MainWindow() {
             InitializeComponent();
 
             mainCanvas.MouseMove += MainCanvas_MouseMove;
             mainCanvas.PreviewMouseMove += MainCanvas_PreviewMouseMove;
+
+            sinColor.Fill = Settings.sinBrush;
+            sinColor.Cursor = Cursors.Hand;
+            sinColor.MouseLeftButtonDown += (sender, e) => {
+                if (ShowSin) {
+                    ShowSin = false;
+                    sinColor.Fill = Settings.baseColorBrush;
+                } else {
+                    ShowSin = true;
+                    sinColor.Fill = Settings.sinBrush;
+                }
+                GenerateCanvasDrawing(Alpha);
+            };
+
+            cosColor.Fill = Settings.cosBrush;
+            cosColor.Cursor = Cursors.Hand;
+            cosColor.MouseLeftButtonDown += (sender, e) => {
+                if (ShowCos) {
+                    ShowCos = false;
+                    cosColor.Fill = Settings.baseColorBrush;
+                }
+                else {
+                    ShowCos = true;
+                    cosColor.Fill = Settings.cosBrush;
+                }
+                GenerateCanvasDrawing(Alpha);
+            };
+
+            tanColor.Fill = Settings.tanBrush;
+            tanColor.Cursor = Cursors.Hand;
+            tanColor.MouseLeftButtonDown += (sender, e) => {
+                if (ShowTan) {
+                    ShowTan = false;
+                    tanColor.Fill = Settings.baseColorBrush;
+                }
+                else {
+                    ShowTan = true;
+                    tanColor.Fill = Settings.tanBrush;
+                }
+                GenerateCanvasDrawing(Alpha);
+            };
+
+            cotColor.Fill = Settings.cotBrush;
+            cotColor.Cursor = Cursors.Hand;
+            cotColor.MouseLeftButtonDown += (sender, e) => {
+                if (ShowCot) {
+                    ShowCot = false;
+                    cotColor.Fill = Settings.baseColorBrush;
+                }
+                else {
+                    ShowCot = true;
+                    cotColor.Fill = Settings.cotBrush;
+                }
+                GenerateCanvasDrawing(Alpha);
+            };
         }
 
         private void MainCanvas_PreviewMouseMove(object sender, MouseEventArgs e)
@@ -135,6 +196,7 @@ namespace Trigonometrics {
             if (IsDragging) {
                 UpdateText(alpha);
                 GenerateCanvasDrawing(alpha);
+                Alpha = alpha;
                 angleInput.Text = Convert.ToString(Math.Round(ConvertToDegrees(alpha) * 100) / 100);
                 ChangedByDrag = true;
                 Mouse.OverrideCursor = Cursors.Hand;
@@ -169,6 +231,7 @@ namespace Trigonometrics {
 
                 UpdateText(rad);
                 GenerateCanvasDrawing(rad);
+                Alpha = rad;
 
             } else if (angleInput.Text.Length == 0) {
                 angleInput.BorderBrush = System.Windows.Media.Brushes.LightBlue;
