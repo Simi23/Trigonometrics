@@ -18,7 +18,7 @@ namespace Trigonometrics.MathCollection
 {
     class Basics : MathDefinition
     {
-        static Brush baseBrush = ColourPalette.BrushRGB(138, 138, 138);
+        static Brush baseBrush = Settings.baseColorBrush;
         public Dictionary<Shape, ShapeParams> ShapeCollection(double CenterX, double CenterY, double alpha, double deg, double CanvasWidth, double CanvasHeight)
         {
             Dictionary<Shape, ShapeParams> shapeCollection = new Dictionary<Shape, ShapeParams>();
@@ -28,7 +28,7 @@ namespace Trigonometrics.MathCollection
             {
                 Width = 200,
                 Height = 200,
-                Stroke = ColourPalette.BrushRGB(43, 43, 43),
+                Stroke = Settings.circleBrush,
                 StrokeThickness = 3
             };
             ShapeParams circleDef = new ShapeParams() {
@@ -36,9 +36,7 @@ namespace Trigonometrics.MathCollection
                 Left = CenterX - 100,
                 Top = CenterY - 100,
                 ChangeLeft = true,
-                ChangeTop = true,
-                MouseEnter = Circle_MouseEnter,
-                MouseLeave = Circle_MouseLeave
+                ChangeTop = true
             };
             shapeCollection.Add(circleShape, circleDef);
 
@@ -84,7 +82,7 @@ namespace Trigonometrics.MathCollection
 
                 X2 = CanvasWidth,
                 Y2 = CenterY,
-                Stroke = Brushes.Gray,
+                Stroke = Settings.coordLineBrush,
                 StrokeDashArray = new DoubleCollection() { 6, 3 },
                 StrokeThickness = 1
             };
@@ -102,7 +100,7 @@ namespace Trigonometrics.MathCollection
 
                 X2 = CenterX,
                 Y2 = CanvasHeight,
-                Stroke = Brushes.Gray,
+                Stroke = Settings.coordLineBrush,
                 StrokeDashArray = new DoubleCollection() { 6, 3 },
                 StrokeThickness = 1
             };
@@ -113,33 +111,6 @@ namespace Trigonometrics.MathCollection
             shapeCollection.Add(coordLineYShape, coordLineYDef);
 
             return shapeCollection;
-        }
-
-        private void Circle_MouseLeave(object sender, MouseEventArgs e)
-        {
-            Ellipse c = (Ellipse)sender;
-            c.Stroke = new SolidColorBrush(Color.FromRgb(43, 43, 43));
-
-            DoubleAnimation da = new DoubleAnimation(4, 3, new Duration(TimeSpan.FromSeconds(.125)));
-            Storyboard.SetTarget(da, c);
-            Storyboard.SetTargetProperty(da, new PropertyPath("StrokeThickness"));
-            Storyboard stb = new Storyboard();
-            stb.Children.Add(da);
-            stb.Begin();
-        }
-
-        private void Circle_MouseEnter(object sender, MouseEventArgs e)
-        {
-            Ellipse c = (Ellipse)sender;
-            c.Stroke = Brushes.Black;
-
-            DoubleAnimation da = new DoubleAnimation(3, 4, new Duration(TimeSpan.FromSeconds(.125)));
-            Storyboard.SetTarget(da, c);
-            Storyboard.SetTargetProperty(da, new PropertyPath("StrokeThickness"));
-            Storyboard stb = new Storyboard();
-            stb.Children.Add(da);
-            stb.Begin();
-
         }
     }
 }

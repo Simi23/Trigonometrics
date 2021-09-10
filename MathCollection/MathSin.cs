@@ -19,7 +19,7 @@ namespace Trigonometrics.MathCollection
     class MathSin : MathDefinition
     {
         //237 28 36
-        static Brush brush = ColourPalette.BrushRGB(237, 28, 36);
+        static Brush brush = Settings.sinBrush;
         public Dictionary<Shape, ShapeParams> ShapeCollection(double CenterX, double CenterY, double alpha, double deg, double CanvasWidth, double CanvasHeight)
         {
             Dictionary<Shape, ShapeParams> shapeCollection = new Dictionary<Shape, ShapeParams>();

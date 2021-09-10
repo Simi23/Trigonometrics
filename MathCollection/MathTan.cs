@@ -19,7 +19,7 @@ namespace Trigonometrics.MathCollection
     class MathTan : MathDefinition
     {
         // 0 162 232
-        static Brush brush = ColourPalette.BrushRGB(0, 162, 232);
+        static Brush brush = Settings.tanBrush;
         public Dictionary<Shape, ShapeParams> ShapeCollection(double CenterX, double CenterY, double alpha, double deg, double CanvasWidth, double CanvasHeight)
         {
             Dictionary<Shape, ShapeParams> shapeCollection = new Dictionary<Shape, ShapeParams>();
@@ -75,7 +75,7 @@ namespace Trigonometrics.MathCollection
 
                 X2 = tanX2,
                 Y2 = tanY2,
-                Stroke = Brushes.Gray,
+                Stroke = Settings.coordLineBrush,
                 StrokeDashArray = new DoubleCollection() { 6, 3 },
                 StrokeThickness = 1
             };

@@ -18,8 +18,6 @@ namespace Trigonometrics.MathCollection
 {
     class MathCot : MathDefinition
     {
-        // 255 127 39
-        static Brush brush = ColourPalette.BrushRGB(255, 127, 39);
         public Dictionary<Shape, ShapeParams> ShapeCollection(double CenterX, double CenterY, double alpha, double deg, double CanvasWidth, double CanvasHeight)
         {
             Dictionary<Shape, ShapeParams> shapeCollection = new Dictionary<Shape, ShapeParams>();
@@ -27,7 +25,6 @@ namespace Trigonometrics.MathCollection
             bool cotUp = DetermineCotUp(deg);
             bool showCot = DetermineShowCot(deg);
 
-            Brush tanBrush = Math.Tan(alpha) >= 0 ? Brushes.OrangeRed : Brushes.CornflowerBlue;
             double cotX1, cotX2, cotY1, cotY2;
 
             double cot = cotUp ? 1 / Math.Tan(alpha) : -1 / Math.Tan(alpha);
@@ -60,7 +57,7 @@ namespace Trigonometrics.MathCollection
 
                 X2 = cotX2,
                 Y2 = cotY2,
-                Stroke = tanBrush,
+                Stroke = Settings.cotBrush,
                 StrokeThickness = 3
             };
             ShapeParams cotLineDef = new ShapeParams()
@@ -77,7 +74,7 @@ namespace Trigonometrics.MathCollection
 
                 X2 = cotX2,
                 Y2 = cotY2,
-                Stroke = Brushes.Gray,
+                Stroke = Settings.coordLineBrush,
                 StrokeDashArray = new DoubleCollection() { 6, 3 },
                 StrokeThickness = 1
             };

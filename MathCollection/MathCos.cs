@@ -18,7 +18,7 @@ namespace Trigonometrics.MathCollection
 {
     class MathCos : MathDefinition
     {
-        static Brush brush = ColourPalette.BrushRGB(34, 177, 76);
+        static Brush brush = Settings.cosBrush;
         
         public Dictionary<Shape, ShapeParams> ShapeCollection(double CenterX, double CenterY, double alpha, double deg, double CanvasWidth, double CanvasHeight)
         {
