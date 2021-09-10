@@ -23,12 +23,20 @@ namespace Trigonometrics {
         public static double CenterX = 200;
         public static double CenterY = 200;
         public static double ZoomFactor = 1;
+
+        private static bool IsDragging = false;
         
         public MainWindow() {
             InitializeComponent();
 
-            mainCanvas.MouseMove += DragKnob_MouseMove;
-        }        
+            mainCanvas.MouseMove += MainCanvas_MouseMove;
+            mainCanvas.PreviewMouseMove += MainCanvas_PreviewMouseMove;
+        }
+
+        private void MainCanvas_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            e.Handled = false;
+        }
 
         private void GenerateCanvasDrawing(double alpha) {
             bool knobExists = false;
@@ -93,15 +101,38 @@ namespace Trigonometrics {
             }
         }
 
-        private void DragKnob_MouseMove(object sender, MouseEventArgs e)
+        private void MainCanvas_MouseMove(object sender, MouseEventArgs e)
         {
             Point mp = Mouse.GetPosition(mainCanvas);
             double a = CenterY - mp.Y;
             double b = mp.X - CenterX;
-            double alpha = Math.Atan(a / b);
+            double alpha = Math.Atan(Math.Abs(a / b));
 
-            GenerateCanvasDrawing(alpha);
-            Console.WriteLine($"Angle: {ConvertToDegrees(alpha)}");
+            alpha = double.IsNaN(alpha) ? 0 : alpha;
+
+            if (a >= 0 && b < 0) {
+                alpha = ConvertToRadians(180) - alpha;
+            } else if (a < 0 && b < 0) {
+                alpha = ConvertToRadians(180) + alpha;
+            } else if (a < 0 && b >= 0) {
+                alpha = ConvertToRadians(360) - alpha;
+            }
+
+            if (Mouse.DirectlyOver is System.Windows.Shapes.Ellipse) {
+                Ellipse ell = (Ellipse)Mouse.DirectlyOver;
+                if (ell.Uid == "dragKnob") {
+                    if (IsDragging == false && e.LeftButton == MouseButtonState.Pressed) {
+                        IsDragging = true;
+                    }
+                }
+            }
+            if (IsDragging == true && e.LeftButton == MouseButtonState.Released) {
+                IsDragging = false;
+            }
+            Console.WriteLine(IsDragging);
+            if (IsDragging) {
+                GenerateCanvasDrawing(alpha);
+            }
         }
 
         private void angleInput_TextChanged(object sender, TextChangedEventArgs e) {

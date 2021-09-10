@@ -18,7 +18,7 @@
         <Label x:Name="lb_v_ctg" Content="" HorizontalAlignment="Left" Margin="232,102,0,0" VerticalAlignment="Top"/>
         <Border  HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="387,10,0,0" Height="400" Width="400" BorderBrush="Gray" BorderThickness="2">
             <StackPanel HorizontalAlignment="Left" Height="400" Margin="0,0,0,0" VerticalAlignment="Top" Width="400" ClipToBounds="True">
-                <Canvas x:Name="mainCanvas" HorizontalAlignment="Left" Height="400" Margin="0,0,0,0" VerticalAlignment="Top" Width="400"/>
+                <Canvas x:Name="mainCanvas" HorizontalAlignment="Left" Height="400" Margin="0,0,0,0" VerticalAlignment="Top" Width="400" Background="White"/>
             </StackPanel>
         </Border>
     </Grid>
