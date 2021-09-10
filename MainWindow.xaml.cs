@@ -25,6 +25,7 @@ namespace Trigonometrics {
         public static double ZoomFactor = 1;
 
         private static bool IsDragging = false;
+        private static bool ChangedByDrag = false;
         
         public MainWindow() {
             InitializeComponent();
@@ -128,14 +129,37 @@ namespace Trigonometrics {
             }
             if (IsDragging == true && e.LeftButton == MouseButtonState.Released) {
                 IsDragging = false;
+                Mouse.OverrideCursor = null;
             }
-            Console.WriteLine(IsDragging);
+
             if (IsDragging) {
+                UpdateText(alpha);
                 GenerateCanvasDrawing(alpha);
+                angleInput.Text = Convert.ToString(Math.Round(ConvertToDegrees(alpha) * 100) / 100);
+                ChangedByDrag = true;
+                Mouse.OverrideCursor = Cursors.Hand;
             }
         }
 
+        private void UpdateText(double rad)
+        {
+            int roundDecimals = 4;
+            double angle = ConvertToDegrees(rad);
+
+            string tan = angle % 180 == 90 ? "-" : Math.Round(Math.Tan(rad), roundDecimals).ToString();
+            string cot = angle % 180 == 0 ? "-" : Math.Round(1 / Math.Tan(rad), roundDecimals).ToString();
+
+            lb_v_sin.Content = Math.Round(Math.Sin(rad), roundDecimals);
+            lb_v_cos.Content = Math.Round(Math.Cos(rad), roundDecimals);
+            lb_v_tg.Content = tan;
+            lb_v_ctg.Content = cot;
+        }
+
         private void angleInput_TextChanged(object sender, TextChangedEventArgs e) {
+            if (ChangedByDrag) {
+                ChangedByDrag = false;
+                return;
+            }
             if (double.TryParse(angleInput.Text, out double angle)) {
                 angleInput.BorderBrush = System.Windows.Media.Brushes.LightBlue;
                 angleInput.SelectionBrush = System.Windows.Media.Brushes.LightBlue;
@@ -143,16 +167,7 @@ namespace Trigonometrics {
 
                 double rad = ConvertToRadians(angle);
 
-                int roundDecimals = 4;
-
-                string tan = angle % 180 == 90 ? "-" : Math.Round(Math.Tan(rad), roundDecimals).ToString();
-                string cot = angle % 180 == 0 ? "-" : Math.Round(1 / Math.Tan(rad), roundDecimals).ToString();
-
-                lb_v_sin.Content = Math.Round(Math.Sin(rad), roundDecimals);
-                lb_v_cos.Content = Math.Round(Math.Cos(rad), roundDecimals);
-                lb_v_tg.Content = tan;
-                lb_v_ctg.Content = cot;
-
+                UpdateText(rad);
                 GenerateCanvasDrawing(rad);
 
             } else if (angleInput.Text.Length == 0) {
@@ -183,5 +198,6 @@ namespace Trigonometrics {
         {
             return radian / (Math.PI / 180);
         }
+
     }
 }
