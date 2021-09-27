@@ -26,29 +26,21 @@ namespace Trigonometrics.MathCollection
                 return shapeCollection;
             }
 
-            bool cotUp = DetermineCotUp(deg);
             bool showCot = DetermineShowCot(deg);
 
             double cotX1, cotX2, cotY1, cotY2;
 
-            double cot = cotUp ? 1 / Math.Tan(alpha) : -1 / Math.Tan(alpha);
+            double cot = 1 / Math.Tan(alpha);
 
             if (!showCot) {
                 return shapeCollection;
             }
 
-            if (cotUp) {
-                cotX1 = CenterX;
-                cotY1 = CenterY - 100;
-                cotX2 = CenterX + cot * 100;
-                cotY2 = CenterY - 100;
-            }
-            else {
-                cotX1 = CenterX;
-                cotY1 = CenterY + 100;
-                cotX2 = CenterX + cot * 100;
-                cotY2 = CenterY + 100;
-            }
+            cotX1 = CenterX;
+            cotY1 = CenterY - 100;
+            cotX2 = CenterX + cot * 100;
+            cotY2 = CenterY - 100;
+            
 
             if (Math.Abs(deg) % 180 == 0) {
                 cotX2 = Math.Min(CanvasHeight, Math.Max(0, cotX2));

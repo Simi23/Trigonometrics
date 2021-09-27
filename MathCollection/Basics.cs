@@ -83,8 +83,7 @@ namespace Trigonometrics.MathCollection
                 X2 = CanvasWidth,
                 Y2 = CenterY,
                 Stroke = Settings.coordLineBrush,
-                StrokeDashArray = new DoubleCollection() { 6, 3 },
-                StrokeThickness = 1
+                StrokeThickness = 1,
             };
             ShapeParams coordLineXDef = new ShapeParams()
             {
@@ -101,14 +100,54 @@ namespace Trigonometrics.MathCollection
                 X2 = CenterX,
                 Y2 = CanvasHeight,
                 Stroke = Settings.coordLineBrush,
-                StrokeDashArray = new DoubleCollection() { 6, 3 },
-                StrokeThickness = 1
+                StrokeThickness = 1,
             };
             ShapeParams coordLineYDef = new ShapeParams()
             {
                 IndexZ = -1
             };
             shapeCollection.Add(coordLineYShape, coordLineYDef);
+
+            PointCollection xTriangle = new PointCollection() {
+                new Point(0, .5),
+                new Point(1, 0),
+                new Point(0, -0.5)
+            };
+            Polygon xTriangleShape = new Polygon();
+            xTriangleShape.Points = xTriangle;
+            xTriangleShape.Fill = Settings.coordLineBrush;
+            xTriangleShape.Stretch = Stretch.Fill;
+            xTriangleShape.Width = 10;
+            xTriangleShape.Height = 10;
+            ShapeParams xTriangleDef = new ShapeParams()
+            {
+                ChangeLeft = true,
+                ChangeTop = true,
+                Left = CanvasWidth - xTriangleShape.Width - 2,
+                Top = CenterY - xTriangleShape.Height / 2
+            };
+            shapeCollection.Add(xTriangleShape, xTriangleDef);
+
+            
+            PointCollection yTriangle = new PointCollection() {
+                new Point(-0.5, 1),
+                new Point(0, -1),
+                new Point(.5, 1)
+            };
+            Polygon yTriangleShape = new Polygon();
+            yTriangleShape.Points = yTriangle;
+            yTriangleShape.Fill = Settings.coordLineBrush;
+            yTriangleShape.Stretch = Stretch.Fill;
+            yTriangleShape.Width = 10;
+            yTriangleShape.Height = 10;
+            ShapeParams yTriangleDef = new ShapeParams()
+            {
+                ChangeLeft = true,
+                ChangeTop = true,
+                Left = CenterX - yTriangleShape.Width / 2,
+                Top = 0
+            };
+            shapeCollection.Add(yTriangleShape, yTriangleDef);
 
             return shapeCollection;
         }

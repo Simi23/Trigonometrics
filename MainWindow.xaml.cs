@@ -37,15 +37,22 @@ namespace Trigonometrics {
             InitializeComponent();
 
             mainCanvas.MouseMove += MainCanvas_MouseMove;
-            mainCanvas.PreviewMouseMove += MainCanvas_PreviewMouseMove;
 
+            AssignToggleButtons();
+        }
+
+        private void AssignToggleButtons()
+        {
             sinColor.Fill = Settings.sinBrush;
             sinColor.Cursor = Cursors.Hand;
             sinColor.MouseLeftButtonDown += (sender, e) => {
-                if (ShowSin) {
+                if (ShowSin)
+                {
                     ShowSin = false;
                     sinColor.Fill = Settings.baseColorBrush;
-                } else {
+                }
+                else
+                {
                     ShowSin = true;
                     sinColor.Fill = Settings.sinBrush;
                 }
@@ -55,11 +62,13 @@ namespace Trigonometrics {
             cosColor.Fill = Settings.cosBrush;
             cosColor.Cursor = Cursors.Hand;
             cosColor.MouseLeftButtonDown += (sender, e) => {
-                if (ShowCos) {
+                if (ShowCos)
+                {
                     ShowCos = false;
                     cosColor.Fill = Settings.baseColorBrush;
                 }
-                else {
+                else
+                {
                     ShowCos = true;
                     cosColor.Fill = Settings.cosBrush;
                 }
@@ -69,11 +78,13 @@ namespace Trigonometrics {
             tanColor.Fill = Settings.tanBrush;
             tanColor.Cursor = Cursors.Hand;
             tanColor.MouseLeftButtonDown += (sender, e) => {
-                if (ShowTan) {
+                if (ShowTan)
+                {
                     ShowTan = false;
                     tanColor.Fill = Settings.baseColorBrush;
                 }
-                else {
+                else
+                {
                     ShowTan = true;
                     tanColor.Fill = Settings.tanBrush;
                 }
@@ -83,21 +94,18 @@ namespace Trigonometrics {
             cotColor.Fill = Settings.cotBrush;
             cotColor.Cursor = Cursors.Hand;
             cotColor.MouseLeftButtonDown += (sender, e) => {
-                if (ShowCot) {
+                if (ShowCot)
+                {
                     ShowCot = false;
                     cotColor.Fill = Settings.baseColorBrush;
                 }
-                else {
+                else
+                {
                     ShowCot = true;
                     cotColor.Fill = Settings.cotBrush;
                 }
                 GenerateCanvasDrawing(Alpha);
             };
-        }
-
-        private void MainCanvas_PreviewMouseMove(object sender, MouseEventArgs e)
-        {
-            e.Handled = false;
         }
 
         private void GenerateCanvasDrawing(double alpha) {
@@ -159,6 +167,21 @@ namespace Trigonometrics {
                         Canvas.SetTop(shape, shapeParam.Top);
                     }
                     Canvas.SetZIndex(shape, shapeParam.IndexZ);
+                }
+            }
+
+            Dictionary<TextBlock, ShapeParams> textCollection = new MathCollection.TextCollection().GetTextCollection(CenterX, CenterY, mainCanvas.ActualWidth, mainCanvas.ActualHeight);
+            foreach (TextBlock textBlock in textCollection.Keys)
+            {
+                ShapeParams shapeParam = textCollection[textBlock];
+                mainCanvas.Children.Add(textBlock);
+                if (shapeParam.ChangeLeft)
+                {
+                    Canvas.SetLeft(textBlock, shapeParam.Left);
+                }
+                if (shapeParam.ChangeTop)
+                {
+                    Canvas.SetTop(textBlock, shapeParam.Top);
                 }
             }
         }
@@ -256,11 +279,14 @@ namespace Trigonometrics {
         public double ConvertToRadians(double angle) {
             return (Math.PI / 180) * angle;
         }
-
         public double ConvertToDegrees(double radian)
         {
             return radian / (Math.PI / 180);
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            angleInput.Text = "0";
+        }
     }
 }

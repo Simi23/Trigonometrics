@@ -58,6 +58,7 @@
     <Compile Include="MathCollection\MathCos.cs" />
     <Compile Include="MathCollection\MathCot.cs" />
     <Compile Include="MathCollection\MathTan.cs" />
+    <Compile Include="MathCollection\TextCollection.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ShapeParams.cs" />
     <Page Include="MainWindow.xaml">

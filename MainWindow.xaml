@@ -5,25 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Trigonometrics"
         mc:Ignorable="d"
-        Title="Trigonometrikus függvények" Height="653" Width="780">
+        Title="Trigonometrikus függvények" Height="481" Width="704" Loaded="Window_Loaded">
     <Grid>
-        <TextBox x:Name="angleInput" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="angleInput_TextChanged"/>
-        <Label x:Name="lb_sin" Content="Szinusz:" HorizontalAlignment="Left" Margin="178,9,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lb_cos" Content="Koszinusz:" HorizontalAlignment="Left" Margin="178,40,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lb_tg" Content="Tangens:" HorizontalAlignment="Left" Margin="178,71,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lb_ctg" Content="Kotangens:" HorizontalAlignment="Left" Margin="178,102,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lb_v_sin" Content="" HorizontalAlignment="Left" Margin="271,9,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lb_v_cos" Content="" HorizontalAlignment="Left" Margin="271,40,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lb_v_tg" Content="" HorizontalAlignment="Left" Margin="271,71,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lb_v_ctg" Content="" HorizontalAlignment="Left" Margin="271,102,0,0" VerticalAlignment="Top"/>
-        <Border  HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="352,10,0,0" Height="400" Width="400" BorderBrush="Gray" BorderThickness="2">
+        <TextBox x:Name="angleInput" HorizontalAlignment="Left" Height="23" Margin="19,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="angleInput_TextChanged"/>
+        <Border  HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="253,29,0,0" Height="400" Width="400" BorderBrush="Gray" BorderThickness="2">
             <StackPanel HorizontalAlignment="Left" Height="400" Margin="0,0,0,0" VerticalAlignment="Top" Width="400" ClipToBounds="True">
                 <Canvas x:Name="mainCanvas" HorizontalAlignment="Left" Height="400" Margin="0,0,0,0" VerticalAlignment="Top" Width="400" Background="White"/>
             </StackPanel>
         </Border>
-        <Ellipse x:Name="sinColor" HorizontalAlignment="Left" Height="8" Margin="168,19,0,0" Stroke="Black" VerticalAlignment="Top" Width="8" RenderTransformOrigin="-0.333,2.778" StrokeThickness="0" Fill="#FFF4F4F5"/>
-        <Ellipse x:Name="cosColor" HorizontalAlignment="Left" Height="8" Margin="168,50,0,0" Stroke="Black" VerticalAlignment="Top" Width="8" RenderTransformOrigin="-0.333,2.778" StrokeThickness="0" Fill="#FFF4F4F5"/>
-        <Ellipse x:Name="tanColor" HorizontalAlignment="Left" Height="8" Margin="168,81,0,0" Stroke="Black" VerticalAlignment="Top" Width="8" RenderTransformOrigin="-0.333,2.778" StrokeThickness="0" Fill="#FFF4F4F5"/>
-        <Ellipse x:Name="cotColor" HorizontalAlignment="Left" Height="8" Margin="168,112,0,0" Stroke="Black" VerticalAlignment="Top" Width="8" RenderTransformOrigin="-0.333,2.778" StrokeThickness="0" Fill="#FFF4F4F5"/>
+        <Grid HorizontalAlignment="Left" Height="140" Margin="19,50,0,0" VerticalAlignment="Top" Width="183">
+            <Label x:Name="lb_sin" Content="Szinusz:" HorizontalAlignment="Left" Margin="20,11,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="lb_cos" Content="Koszinusz:" HorizontalAlignment="Left" Margin="20,42,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="lb_tg" Content="Tangens:" HorizontalAlignment="Left" Margin="20,73,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="lb_ctg" Content="Kotangens:" HorizontalAlignment="Left" Margin="20,104,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="lb_v_sin" Content="" HorizontalAlignment="Left" Margin="113,11,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="lb_v_cos" Content="" HorizontalAlignment="Left" Margin="113,42,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="lb_v_tg" Content="" HorizontalAlignment="Left" Margin="113,73,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="lb_v_ctg" Content="" HorizontalAlignment="Left" Margin="113,104,0,0" VerticalAlignment="Top"/>
+            <Ellipse x:Name="sinColor" HorizontalAlignment="Left" Height="8" Margin="10,21,0,0" Stroke="Black" VerticalAlignment="Top" Width="8" RenderTransformOrigin="-0.333,2.778" StrokeThickness="0" Fill="#FFF4F4F5"/>
+            <Ellipse x:Name="cosColor" HorizontalAlignment="Left" Height="8" Margin="10,52,0,0" Stroke="Black" VerticalAlignment="Top" Width="8" RenderTransformOrigin="-0.333,2.778" StrokeThickness="0" Fill="#FFF4F4F5"/>
+            <Ellipse x:Name="tanColor" HorizontalAlignment="Left" Height="8" Margin="10,83,0,0" Stroke="Black" VerticalAlignment="Top" Width="8" RenderTransformOrigin="-0.333,2.778" StrokeThickness="0" Fill="#FFF4F4F5"/>
+            <Ellipse x:Name="cotColor" HorizontalAlignment="Left" Height="8" Margin="10,114,0,0" Stroke="Black" VerticalAlignment="Top" Width="8" RenderTransformOrigin="-0.333,2.778" StrokeThickness="0" Fill="#FFF4F4F5"/>
+        </Grid>
+        <Label Content="Egységnyi sugarú kör&#xD;&#xA;" HorizontalAlignment="Left" Margin="253,3,0,0" VerticalAlignment="Top" Height="26"/>
     </Grid>
 </Window>

@@ -28,29 +28,21 @@ namespace Trigonometrics.MathCollection
                 return shapeCollection;
             }
 
-            bool tanRight = DetermineTanRight(deg);
             bool showTan = DetermineShowTan(deg);
             
             double tanX1, tanX2, tanY1, tanY2;
 
-            double tan = tanRight ? Math.Tan(alpha) : Math.Tan(alpha) * -1;
+            double tan = Math.Tan(alpha);
 
             if (!showTan) {
                 return shapeCollection;
             }
-
-            if (tanRight) {
-                tanX1 = CenterX + 100;
-                tanY1 = CenterY;
-                tanX2 = CenterX + 100;
-                tanY2 = CenterY - tan * 100;
-            }
-            else {
-                tanX1 = CenterX - 100;
-                tanY1 = CenterY;
-                tanX2 = CenterX - 100;
-                tanY2 = CenterY - tan * 100;
-            }
+            
+            tanX1 = CenterX + 100;
+            tanY1 = CenterY;
+            tanX2 = CenterX + 100;
+            tanY2 = CenterY - tan * 100;
+            
 
             if (Math.Abs(deg) % 180 - 90 == 0) {
                 tanY2 = Math.Min(CanvasHeight, Math.Max(0, tanY2));
@@ -91,27 +83,6 @@ namespace Trigonometrics.MathCollection
             
 
             return shapeCollection;
-        }
-
-        public bool DetermineTanRight(double angle)
-        {
-            double tempAngle = angle % 360;
-            if (tempAngle < 0) {
-                tempAngle += 360;
-            }
-
-            if (tempAngle <= 90) {
-                return true;
-            }
-            else if (tempAngle < 180) {
-                return false;
-            }
-            else if (tempAngle <= 270) {
-                return false;
-            }
-            else {
-                return true;
-            }
         }
 
         public bool DetermineShowTan(double angle)
