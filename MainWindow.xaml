@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Trigonometrics"
         mc:Ignorable="d"
-        Title="Trigonometrikus függvények" Height="481" Width="704" Loaded="Window_Loaded">
+        Title="Trigonometrikus függvények" Height="481" Width="688" Loaded="Window_Loaded">
     <Grid>
-        <TextBox x:Name="angleInput" HorizontalAlignment="Left" Height="23" Margin="19,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="angleInput_TextChanged"/>
+        <TextBox x:Name="angleInput" HorizontalAlignment="Left" Height="23" Margin="19,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" TextChanged="angleInput_TextChanged"/>
         <Border  HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="253,29,0,0" Height="400" Width="400" BorderBrush="Gray" BorderThickness="2">
             <StackPanel HorizontalAlignment="Left" Height="400" Margin="0,0,0,0" VerticalAlignment="Top" Width="400" ClipToBounds="True">
                 <Canvas x:Name="mainCanvas" HorizontalAlignment="Left" Height="400" Margin="0,0,0,0" VerticalAlignment="Top" Width="400" Background="White"/>
             </StackPanel>
         </Border>
-        <Grid HorizontalAlignment="Left" Height="140" Margin="19,50,0,0" VerticalAlignment="Top" Width="183">
+        <Grid HorizontalAlignment="Left" Height="145" Margin="19,48,0,0" VerticalAlignment="Top" Width="183">
             <Label x:Name="lb_sin" Content="Szinusz:" HorizontalAlignment="Left" Margin="20,11,0,0" VerticalAlignment="Top"/>
             <Label x:Name="lb_cos" Content="Koszinusz:" HorizontalAlignment="Left" Margin="20,42,0,0" VerticalAlignment="Top"/>
             <Label x:Name="lb_tg" Content="Tangens:" HorizontalAlignment="Left" Margin="20,73,0,0" VerticalAlignment="Top"/>
@@ -28,5 +28,13 @@
             <Ellipse x:Name="cotColor" HorizontalAlignment="Left" Height="8" Margin="10,114,0,0" Stroke="Black" VerticalAlignment="Top" Width="8" RenderTransformOrigin="-0.333,2.778" StrokeThickness="0" Fill="#FFF4F4F5"/>
         </Grid>
         <Label Content="Egységnyi sugarú kör&#xD;&#xA;" HorizontalAlignment="Left" Margin="253,3,0,0" VerticalAlignment="Top" Height="26"/>
+        <Grid x:Name="funcSinCos" HorizontalAlignment="Left" Height="36" Margin="19,198,0,0" VerticalAlignment="Top" Width="183">
+            <Rectangle Fill="#FFF4F4F5" Stroke="Black" StrokeThickness="0"/>
+            <TextBlock Margin="0,9,0,9" TextWrapping="Wrap" Text="Szinusz, koszinusz függvény" TextAlignment="Center"/>
+        </Grid>
+        <Grid x:Name="funcTanCot" HorizontalAlignment="Left" Height="36" Margin="19,239,0,0" VerticalAlignment="Top" Width="183">
+            <Rectangle Fill="#FFF4F4F5" Stroke="Black" StrokeThickness="0"/>
+            <TextBlock Margin="0,9,0,9" TextWrapping="Wrap" Text="Tangens, kotangens függvény" TextAlignment="Center"/>
+        </Grid>
     </Grid>
 </Window>

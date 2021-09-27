@@ -29,6 +29,9 @@ namespace Trigonometrics {
         public static bool ShowTan = true;
         public static bool ShowCot = true;
 
+        public static bool ShowSinCosFunc = false;
+        public static bool ShowTanCotFunc = false;
+
         private static bool IsDragging = false;
         private static bool ChangedByDrag = false;
         private static double Alpha = 0;
@@ -105,6 +108,51 @@ namespace Trigonometrics {
                     cotColor.Fill = Settings.cotBrush;
                 }
                 GenerateCanvasDrawing(Alpha);
+            };
+
+            funcSinCos.Cursor = Cursors.Hand;
+            funcSinCos.MouseLeftButtonDown += (sender, e) => {
+                if (ShowSinCosFunc)
+                {
+                    ShowSinCosFunc = false;
+                    Rectangle bg = funcSinCos.Children[0] as Rectangle;
+                    bg.Fill = Settings.deactivatedToggleBrush;
+                } else
+                {
+                    if (ShowTanCotFunc)
+                    {
+                        ShowTanCotFunc = false;
+                        Rectangle bgTanCot = funcTanCot.Children[0] as Rectangle;
+                        bgTanCot.Fill = Settings.deactivatedToggleBrush;
+                    }
+                    
+                    ShowSinCosFunc = true;
+                    Rectangle bg = funcSinCos.Children[0] as Rectangle;
+                    bg.Fill = Settings.activatedToggleBrush;
+                }
+            };
+
+            funcTanCot.Cursor = Cursors.Hand;
+            funcTanCot.MouseLeftButtonDown += (sender, e) => {
+                if (ShowTanCotFunc)
+                {
+                    ShowTanCotFunc = false;
+                    Rectangle bg = funcTanCot.Children[0] as Rectangle;
+                    bg.Fill = Settings.deactivatedToggleBrush;
+                }
+                else
+                {
+                    if (ShowSinCosFunc)
+                    {
+                        ShowSinCosFunc = false;
+                        Rectangle bgSinCos = funcSinCos.Children[0] as Rectangle;
+                        bgSinCos.Fill = Settings.deactivatedToggleBrush;
+                    }
+
+                    ShowTanCotFunc = true;
+                    Rectangle bg = funcTanCot.Children[0] as Rectangle;
+                    bg.Fill = Settings.activatedToggleBrush;
+                }
             };
         }
 
@@ -287,6 +335,7 @@ namespace Trigonometrics {
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             angleInput.Text = "0";
+            
         }
     }
 }

@@ -23,5 +23,8 @@ namespace Trigonometrics
         public static Brush cotBrush = ColourPalette.BrushRGB(255, 69, 0);
         public static Brush sinBrush = ColourPalette.BrushRGB(237, 28, 36);
         public static Brush tanBrush = ColourPalette.BrushRGB(0, 162, 232);
+
+        public static Brush activatedToggleBrush = ColourPalette.BrushRGB(150, 183, 255);
+        public static Brush deactivatedToggleBrush = ColourPalette.BrushRGB(244, 244, 245);
     }
 }
