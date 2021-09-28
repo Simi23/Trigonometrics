@@ -391,49 +391,10 @@ namespace Trigonometrics {
             List<MathDefinition> shapesToDraw = new List<MathDefinition>() {
                 new MathCollection.Basics(),
                 new MathCollection.SinWave(),
+                new MathCollection.RadGrid(),
             };
 
-            foreach (MathDefinition shapeCollection in shapesToDraw)
-            {
-                Dictionary<Shape, ShapeParams> shapes = shapeCollection.ShapeCollection(20, CenterY, Alpha, ConvertToDegrees(Alpha), secRightCanvas.ActualWidth, secRightCanvas.ActualHeight);
-                foreach (Shape shape in shapes.Keys)
-                {
-                    ShapeParams shapeParam = shapes[shape];
-                    secRightCanvas.Children.Add(shape);
-                    if (shapeParam.MouseEnter != null)
-                    {
-                        shape.MouseEnter += shapeParam.MouseEnter;
-                    }
-                    if (shapeParam.MouseLeave != null)
-                    {
-                        shape.MouseLeave += shapeParam.MouseLeave;
-                    }
-                    if (shapeParam.ChangeLeft)
-                    {
-                        Canvas.SetLeft(shape, shapeParam.Left);
-                    }
-                    if (shapeParam.ChangeTop)
-                    {
-                        Canvas.SetTop(shape, shapeParam.Top);
-                    }
-                    Canvas.SetZIndex(shape, shapeParam.IndexZ);
-                }
-            }
-
-            Dictionary<TextBlock, ShapeParams> textCollection = new MathCollection.TextCollection().GetTextCollection(20, CenterY, secRightCanvas.ActualWidth, secRightCanvas.ActualHeight);
-            foreach (TextBlock textBlock in textCollection.Keys)
-            {
-                ShapeParams shapeParam = textCollection[textBlock];
-                secRightCanvas.Children.Add(textBlock);
-                if (shapeParam.ChangeLeft)
-                {
-                    Canvas.SetLeft(textBlock, shapeParam.Left);
-                }
-                if (shapeParam.ChangeTop)
-                {
-                    Canvas.SetTop(textBlock, shapeParam.Top);
-                }
-            }
+            SetupSecondaryCanvas(shapesToDraw, secRightCanvas);
         }
 
         private void SetupCosCanvas()
@@ -441,49 +402,10 @@ namespace Trigonometrics {
             List<MathDefinition> shapesToDraw = new List<MathDefinition>() {
                 new MathCollection.Basics(),
                 new MathCollection.CosWave(),
+                new MathCollection.RadGrid(),
             };
 
-            foreach (MathDefinition shapeCollection in shapesToDraw)
-            {
-                Dictionary<Shape, ShapeParams> shapes = shapeCollection.ShapeCollection(20, CenterY, Alpha, ConvertToDegrees(Alpha), secBottomCanvas.ActualWidth, secBottomCanvas.ActualHeight);
-                foreach (Shape shape in shapes.Keys)
-                {
-                    ShapeParams shapeParam = shapes[shape];
-                    secBottomCanvas.Children.Add(shape);
-                    if (shapeParam.MouseEnter != null)
-                    {
-                        shape.MouseEnter += shapeParam.MouseEnter;
-                    }
-                    if (shapeParam.MouseLeave != null)
-                    {
-                        shape.MouseLeave += shapeParam.MouseLeave;
-                    }
-                    if (shapeParam.ChangeLeft)
-                    {
-                        Canvas.SetLeft(shape, shapeParam.Left);
-                    }
-                    if (shapeParam.ChangeTop)
-                    {
-                        Canvas.SetTop(shape, shapeParam.Top);
-                    }
-                    Canvas.SetZIndex(shape, shapeParam.IndexZ);
-                }
-            }
-
-            Dictionary<TextBlock, ShapeParams> textCollection = new MathCollection.TextCollection().GetTextCollection(20, CenterY, secBottomCanvas.ActualWidth, secBottomCanvas.ActualHeight);
-            foreach (TextBlock textBlock in textCollection.Keys)
-            {
-                ShapeParams shapeParam = textCollection[textBlock];
-                secBottomCanvas.Children.Add(textBlock);
-                if (shapeParam.ChangeLeft)
-                {
-                    Canvas.SetLeft(textBlock, shapeParam.Left);
-                }
-                if (shapeParam.ChangeTop)
-                {
-                    Canvas.SetTop(textBlock, shapeParam.Top);
-                }
-            }
+            SetupSecondaryCanvas(shapesToDraw, secBottomCanvas);
         }
 
         private void SetupTanCotProjection()
@@ -500,49 +422,10 @@ namespace Trigonometrics {
             List<MathDefinition> shapesToDraw = new List<MathDefinition>() {
                 new MathCollection.Basics(),
                 new MathCollection.TanWave(),
+                new MathCollection.RadGrid(),
             };
 
-            foreach (MathDefinition shapeCollection in shapesToDraw)
-            {
-                Dictionary<Shape, ShapeParams> shapes = shapeCollection.ShapeCollection(20, CenterY, Alpha, ConvertToDegrees(Alpha), secRightCanvas.ActualWidth, secRightCanvas.ActualHeight);
-                foreach (Shape shape in shapes.Keys)
-                {
-                    ShapeParams shapeParam = shapes[shape];
-                    secRightCanvas.Children.Add(shape);
-                    if (shapeParam.MouseEnter != null)
-                    {
-                        shape.MouseEnter += shapeParam.MouseEnter;
-                    }
-                    if (shapeParam.MouseLeave != null)
-                    {
-                        shape.MouseLeave += shapeParam.MouseLeave;
-                    }
-                    if (shapeParam.ChangeLeft)
-                    {
-                        Canvas.SetLeft(shape, shapeParam.Left);
-                    }
-                    if (shapeParam.ChangeTop)
-                    {
-                        Canvas.SetTop(shape, shapeParam.Top);
-                    }
-                    Canvas.SetZIndex(shape, shapeParam.IndexZ);
-                }
-            }
-
-            Dictionary<TextBlock, ShapeParams> textCollection = new MathCollection.TextCollection().GetTextCollection(20, CenterY, secRightCanvas.ActualWidth, secRightCanvas.ActualHeight);
-            foreach (TextBlock textBlock in textCollection.Keys)
-            {
-                ShapeParams shapeParam = textCollection[textBlock];
-                secRightCanvas.Children.Add(textBlock);
-                if (shapeParam.ChangeLeft)
-                {
-                    Canvas.SetLeft(textBlock, shapeParam.Left);
-                }
-                if (shapeParam.ChangeTop)
-                {
-                    Canvas.SetTop(textBlock, shapeParam.Top);
-                }
-            }
+            SetupSecondaryCanvas(shapesToDraw, secRightCanvas);
         }
 
         private void SetupCotCanvas()
@@ -550,15 +433,21 @@ namespace Trigonometrics {
             List<MathDefinition> shapesToDraw = new List<MathDefinition>() {
                 new MathCollection.Basics(),
                 new MathCollection.CotWave(),
+                new MathCollection.RadGrid(),
             };
 
+            SetupSecondaryCanvas(shapesToDraw, secBottomCanvas);
+        }
+
+        private void SetupSecondaryCanvas(List<MathDefinition> shapesToDraw, Canvas canvas)
+        {
             foreach (MathDefinition shapeCollection in shapesToDraw)
             {
-                Dictionary<Shape, ShapeParams> shapes = shapeCollection.ShapeCollection(20, CenterY, Alpha, ConvertToDegrees(Alpha), secBottomCanvas.ActualWidth, secBottomCanvas.ActualHeight);
+                Dictionary<Shape, ShapeParams> shapes = shapeCollection.ShapeCollection(20, CenterY, Alpha, ConvertToDegrees(Alpha), canvas.ActualWidth, canvas.ActualHeight);
                 foreach (Shape shape in shapes.Keys)
                 {
                     ShapeParams shapeParam = shapes[shape];
-                    secBottomCanvas.Children.Add(shape);
+                    canvas.Children.Add(shape);
                     if (shapeParam.MouseEnter != null)
                     {
                         shape.MouseEnter += shapeParam.MouseEnter;
@@ -579,11 +468,11 @@ namespace Trigonometrics {
                 }
             }
 
-            Dictionary<TextBlock, ShapeParams> textCollection = new MathCollection.TextCollection().GetTextCollection(20, CenterY, secBottomCanvas.ActualWidth, secBottomCanvas.ActualHeight);
+            Dictionary<TextBlock, ShapeParams> textCollection = new MathCollection.TextCollection().GetTextCollection(20, CenterY, canvas.ActualWidth, canvas.ActualHeight);
             foreach (TextBlock textBlock in textCollection.Keys)
             {
                 ShapeParams shapeParam = textCollection[textBlock];
-                secBottomCanvas.Children.Add(textBlock);
+                canvas.Children.Add(textBlock);
                 if (shapeParam.ChangeLeft)
                 {
                     Canvas.SetLeft(textBlock, shapeParam.Left);
