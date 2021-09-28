@@ -24,6 +24,11 @@ namespace Trigonometrics {
         public static double CenterY = 200;
         public static double ZoomFactor = 1;
 
+        const int defaultWidth = 680;
+        const int defaultHeight = 480;
+        const int maxWidth = 1123;
+        const int maxHeight = 920;
+
         public static bool ShowSin = true;
         public static bool ShowCos = true;
         public static bool ShowTan = true;
@@ -117,6 +122,7 @@ namespace Trigonometrics {
                     ShowSinCosFunc = false;
                     Rectangle bg = funcSinCos.Children[0] as Rectangle;
                     bg.Fill = Settings.deactivatedToggleBrush;
+                    HideAdditionalElements();
                 } else
                 {
                     if (ShowTanCotFunc)
@@ -129,6 +135,12 @@ namespace Trigonometrics {
                     ShowSinCosFunc = true;
                     Rectangle bg = funcSinCos.Children[0] as Rectangle;
                     bg.Fill = Settings.activatedToggleBrush;
+
+                    ShowAdditionalElements();
+                    SetupSinCosProjection();
+
+                    secRigthLabel.Content = "Szinusz függvény";
+                    secBottomLabel.Content = "Koszinusz függvény";
                 }
             };
 
@@ -139,6 +151,7 @@ namespace Trigonometrics {
                     ShowTanCotFunc = false;
                     Rectangle bg = funcTanCot.Children[0] as Rectangle;
                     bg.Fill = Settings.deactivatedToggleBrush;
+                    HideAdditionalElements();
                 }
                 else
                 {
@@ -152,6 +165,12 @@ namespace Trigonometrics {
                     ShowTanCotFunc = true;
                     Rectangle bg = funcTanCot.Children[0] as Rectangle;
                     bg.Fill = Settings.activatedToggleBrush;
+
+                    ShowAdditionalElements();
+                    SetupTanCotProjection();
+
+                    secRigthLabel.Content = "Tangens függvény";
+                    secBottomLabel.Content = "Kotangens függvény";
                 }
             };
         }
@@ -191,6 +210,7 @@ namespace Trigonometrics {
 
             List<MathDefinition> shapesToDraw = new List<MathDefinition>() {
                 new MathCollection.Basics(),
+                new MathCollection.PrimaryAdditions(),
                 new MathCollection.MathSin(),
                 new MathCollection.MathCos(),
                 new MathCollection.MathTan(),
@@ -324,10 +344,10 @@ namespace Trigonometrics {
                 lb_v_ctg.Content = "NaN";
             }
         }
-        public double ConvertToRadians(double angle) {
+        public static double ConvertToRadians(double angle) {
             return (Math.PI / 180) * angle;
         }
-        public double ConvertToDegrees(double radian)
+        public static double ConvertToDegrees(double radian)
         {
             return radian / (Math.PI / 180);
         }
@@ -335,7 +355,244 @@ namespace Trigonometrics {
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             angleInput.Text = "0";
-            
+        }
+
+        private void ShowAdditionalElements()
+        {
+            Width = maxWidth;
+            Height = maxHeight;
+            secRightBorder.Visibility = Visibility.Visible;
+            secBottomBorder.Visibility = Visibility.Visible;
+            secRigthLabel.Visibility = Visibility.Visible;
+            secBottomLabel.Visibility = Visibility.Visible;
+        }
+
+        private void HideAdditionalElements()
+        {
+            Width = defaultWidth;
+            Height = defaultHeight;
+            secRightBorder.Visibility = Visibility.Hidden;
+            secBottomBorder.Visibility = Visibility.Hidden;
+            secRigthLabel.Visibility = Visibility.Hidden;
+            secBottomLabel.Visibility = Visibility.Hidden;
+        }
+
+        private void SetupSinCosProjection()
+        {
+            secRightCanvas.Children.Clear();
+            secBottomCanvas.Children.Clear();
+
+            SetupSinCanvas();
+            SetupCosCanvas();
+        }
+
+        private void SetupSinCanvas()
+        {
+            List<MathDefinition> shapesToDraw = new List<MathDefinition>() {
+                new MathCollection.Basics(),
+                new MathCollection.SinWave(),
+            };
+
+            foreach (MathDefinition shapeCollection in shapesToDraw)
+            {
+                Dictionary<Shape, ShapeParams> shapes = shapeCollection.ShapeCollection(20, CenterY, Alpha, ConvertToDegrees(Alpha), secRightCanvas.ActualWidth, secRightCanvas.ActualHeight);
+                foreach (Shape shape in shapes.Keys)
+                {
+                    ShapeParams shapeParam = shapes[shape];
+                    secRightCanvas.Children.Add(shape);
+                    if (shapeParam.MouseEnter != null)
+                    {
+                        shape.MouseEnter += shapeParam.MouseEnter;
+                    }
+                    if (shapeParam.MouseLeave != null)
+                    {
+                        shape.MouseLeave += shapeParam.MouseLeave;
+                    }
+                    if (shapeParam.ChangeLeft)
+                    {
+                        Canvas.SetLeft(shape, shapeParam.Left);
+                    }
+                    if (shapeParam.ChangeTop)
+                    {
+                        Canvas.SetTop(shape, shapeParam.Top);
+                    }
+                    Canvas.SetZIndex(shape, shapeParam.IndexZ);
+                }
+            }
+
+            Dictionary<TextBlock, ShapeParams> textCollection = new MathCollection.TextCollection().GetTextCollection(20, CenterY, secRightCanvas.ActualWidth, secRightCanvas.ActualHeight);
+            foreach (TextBlock textBlock in textCollection.Keys)
+            {
+                ShapeParams shapeParam = textCollection[textBlock];
+                secRightCanvas.Children.Add(textBlock);
+                if (shapeParam.ChangeLeft)
+                {
+                    Canvas.SetLeft(textBlock, shapeParam.Left);
+                }
+                if (shapeParam.ChangeTop)
+                {
+                    Canvas.SetTop(textBlock, shapeParam.Top);
+                }
+            }
+        }
+
+        private void SetupCosCanvas()
+        {
+            List<MathDefinition> shapesToDraw = new List<MathDefinition>() {
+                new MathCollection.Basics(),
+                new MathCollection.CosWave(),
+            };
+
+            foreach (MathDefinition shapeCollection in shapesToDraw)
+            {
+                Dictionary<Shape, ShapeParams> shapes = shapeCollection.ShapeCollection(20, CenterY, Alpha, ConvertToDegrees(Alpha), secBottomCanvas.ActualWidth, secBottomCanvas.ActualHeight);
+                foreach (Shape shape in shapes.Keys)
+                {
+                    ShapeParams shapeParam = shapes[shape];
+                    secBottomCanvas.Children.Add(shape);
+                    if (shapeParam.MouseEnter != null)
+                    {
+                        shape.MouseEnter += shapeParam.MouseEnter;
+                    }
+                    if (shapeParam.MouseLeave != null)
+                    {
+                        shape.MouseLeave += shapeParam.MouseLeave;
+                    }
+                    if (shapeParam.ChangeLeft)
+                    {
+                        Canvas.SetLeft(shape, shapeParam.Left);
+                    }
+                    if (shapeParam.ChangeTop)
+                    {
+                        Canvas.SetTop(shape, shapeParam.Top);
+                    }
+                    Canvas.SetZIndex(shape, shapeParam.IndexZ);
+                }
+            }
+
+            Dictionary<TextBlock, ShapeParams> textCollection = new MathCollection.TextCollection().GetTextCollection(20, CenterY, secBottomCanvas.ActualWidth, secBottomCanvas.ActualHeight);
+            foreach (TextBlock textBlock in textCollection.Keys)
+            {
+                ShapeParams shapeParam = textCollection[textBlock];
+                secBottomCanvas.Children.Add(textBlock);
+                if (shapeParam.ChangeLeft)
+                {
+                    Canvas.SetLeft(textBlock, shapeParam.Left);
+                }
+                if (shapeParam.ChangeTop)
+                {
+                    Canvas.SetTop(textBlock, shapeParam.Top);
+                }
+            }
+        }
+
+        private void SetupTanCotProjection()
+        {
+            secRightCanvas.Children.Clear();
+            secBottomCanvas.Children.Clear();
+
+            SetupTanCanvas();
+            SetupCotCanvas();
+        }
+
+        private void SetupTanCanvas()
+        {
+            List<MathDefinition> shapesToDraw = new List<MathDefinition>() {
+                new MathCollection.Basics(),
+                new MathCollection.TanWave(),
+            };
+
+            foreach (MathDefinition shapeCollection in shapesToDraw)
+            {
+                Dictionary<Shape, ShapeParams> shapes = shapeCollection.ShapeCollection(20, CenterY, Alpha, ConvertToDegrees(Alpha), secRightCanvas.ActualWidth, secRightCanvas.ActualHeight);
+                foreach (Shape shape in shapes.Keys)
+                {
+                    ShapeParams shapeParam = shapes[shape];
+                    secRightCanvas.Children.Add(shape);
+                    if (shapeParam.MouseEnter != null)
+                    {
+                        shape.MouseEnter += shapeParam.MouseEnter;
+                    }
+                    if (shapeParam.MouseLeave != null)
+                    {
+                        shape.MouseLeave += shapeParam.MouseLeave;
+                    }
+                    if (shapeParam.ChangeLeft)
+                    {
+                        Canvas.SetLeft(shape, shapeParam.Left);
+                    }
+                    if (shapeParam.ChangeTop)
+                    {
+                        Canvas.SetTop(shape, shapeParam.Top);
+                    }
+                    Canvas.SetZIndex(shape, shapeParam.IndexZ);
+                }
+            }
+
+            Dictionary<TextBlock, ShapeParams> textCollection = new MathCollection.TextCollection().GetTextCollection(20, CenterY, secRightCanvas.ActualWidth, secRightCanvas.ActualHeight);
+            foreach (TextBlock textBlock in textCollection.Keys)
+            {
+                ShapeParams shapeParam = textCollection[textBlock];
+                secRightCanvas.Children.Add(textBlock);
+                if (shapeParam.ChangeLeft)
+                {
+                    Canvas.SetLeft(textBlock, shapeParam.Left);
+                }
+                if (shapeParam.ChangeTop)
+                {
+                    Canvas.SetTop(textBlock, shapeParam.Top);
+                }
+            }
+        }
+
+        private void SetupCotCanvas()
+        {
+            List<MathDefinition> shapesToDraw = new List<MathDefinition>() {
+                new MathCollection.Basics(),
+                new MathCollection.CotWave(),
+            };
+
+            foreach (MathDefinition shapeCollection in shapesToDraw)
+            {
+                Dictionary<Shape, ShapeParams> shapes = shapeCollection.ShapeCollection(20, CenterY, Alpha, ConvertToDegrees(Alpha), secBottomCanvas.ActualWidth, secBottomCanvas.ActualHeight);
+                foreach (Shape shape in shapes.Keys)
+                {
+                    ShapeParams shapeParam = shapes[shape];
+                    secBottomCanvas.Children.Add(shape);
+                    if (shapeParam.MouseEnter != null)
+                    {
+                        shape.MouseEnter += shapeParam.MouseEnter;
+                    }
+                    if (shapeParam.MouseLeave != null)
+                    {
+                        shape.MouseLeave += shapeParam.MouseLeave;
+                    }
+                    if (shapeParam.ChangeLeft)
+                    {
+                        Canvas.SetLeft(shape, shapeParam.Left);
+                    }
+                    if (shapeParam.ChangeTop)
+                    {
+                        Canvas.SetTop(shape, shapeParam.Top);
+                    }
+                    Canvas.SetZIndex(shape, shapeParam.IndexZ);
+                }
+            }
+
+            Dictionary<TextBlock, ShapeParams> textCollection = new MathCollection.TextCollection().GetTextCollection(20, CenterY, secBottomCanvas.ActualWidth, secBottomCanvas.ActualHeight);
+            foreach (TextBlock textBlock in textCollection.Keys)
+            {
+                ShapeParams shapeParam = textCollection[textBlock];
+                secBottomCanvas.Children.Add(textBlock);
+                if (shapeParam.ChangeLeft)
+                {
+                    Canvas.SetLeft(textBlock, shapeParam.Left);
+                }
+                if (shapeParam.ChangeTop)
+                {
+                    Canvas.SetTop(textBlock, shapeParam.Top);
+                }
+            }
         }
     }
 }

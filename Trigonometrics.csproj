@@ -55,9 +55,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MathCollection\CosWave.cs" />
+    <Compile Include="MathCollection\CotWave.cs" />
+    <Compile Include="MathCollection\PrimaryAdditions.cs" />
     <Compile Include="MathCollection\MathCos.cs" />
     <Compile Include="MathCollection\MathCot.cs" />
     <Compile Include="MathCollection\MathTan.cs" />
+    <Compile Include="MathCollection\SinWave.cs" />
+    <Compile Include="MathCollection\TanWave.cs" />
     <Compile Include="MathCollection\TextCollection.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ShapeParams.cs" />
