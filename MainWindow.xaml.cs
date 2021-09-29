@@ -688,6 +688,18 @@ namespace Trigonometrics {
                     Canvas.SetTop(textBlock, shapeParam.Top);
                 }
             }
+
+            Dictionary<TextBlock, ShapeParams> textCollection2 = new MathCollection.RadGridText().GetTextCollection(ShiftedCenterX, CenterY, canvas.ActualWidth, canvas.ActualHeight);
+            foreach (TextBlock textBlock in textCollection2.Keys) {
+                ShapeParams shapeParam = textCollection2[textBlock];
+                canvas.Children.Add(textBlock);
+                if (shapeParam.ChangeLeft) {
+                    Canvas.SetLeft(textBlock, shapeParam.Left);
+                }
+                if (shapeParam.ChangeTop) {
+                    Canvas.SetTop(textBlock, shapeParam.Top);
+                }
+            }
         }
 
         private void EnableConnectors(bool sinCos, bool tanCot) {

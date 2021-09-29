@@ -62,6 +62,7 @@
     <Compile Include="MathCollection\MathCot.cs" />
     <Compile Include="MathCollection\MathTan.cs" />
     <Compile Include="MathCollection\RadGrid.cs" />
+    <Compile Include="MathCollection\RadGridText.cs" />
     <Compile Include="MathCollection\SinWave.cs" />
     <Compile Include="MathCollection\TanWave.cs" />
     <Compile Include="MathCollection\TextCollection.cs" />
