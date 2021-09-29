@@ -19,12 +19,12 @@ namespace Trigonometrics.MathCollection {
         public Dictionary<Shape, ShapeParams> ShapeCollection(double CenterX, double CenterY, double alpha, double deg, double CanvasWidth, double CanvasHeight) {
             Dictionary<Shape, ShapeParams> shapeCollection = new Dictionary<Shape, ShapeParams>();
 
-            List<int> points = new List<int>()
+            List<int> pointsVertical = new List<int>()
             {
                 90, 180, 270, 360
             };
 
-            foreach (int p in points) {
+            foreach (int p in pointsVertical) {
                 Line l = new Line() {
                     X1 = CenterX + p,
                     Y1 = 0,
@@ -40,6 +40,30 @@ namespace Trigonometrics.MathCollection {
                 };
                 shapeCollection.Add(l, par);
             }
+
+            List<int> pointsHorizontal = new List<int>()
+            {
+                100, -100
+            };
+
+            foreach (int p in pointsHorizontal) {
+                Line l = new Line() {
+                    X1 = 0,
+                    Y1 = CenterY - p,
+
+                    X2 = CanvasWidth,
+                    Y2 = CenterY - p,
+                    Stroke = Settings.coordLineBrush,
+                    StrokeThickness = 1,
+                    StrokeDashArray = new DoubleCollection() { 6, 3 },
+                };
+                ShapeParams par = new ShapeParams() {
+                    IndexZ = -1
+                };
+                shapeCollection.Add(l, par);
+            }
+
+
 
             return shapeCollection;
         }

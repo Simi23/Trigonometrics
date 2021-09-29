@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MathCollection\CenterCircle.cs" />
     <Compile Include="MathCollection\CosWave.cs" />
     <Compile Include="MathCollection\CotWave.cs" />
     <Compile Include="MathCollection\PrimaryAdditions.cs" />
@@ -68,6 +69,10 @@
     <Compile Include="MathCollection\TextCollection.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ShapeParams.cs" />
+    <Page Include="Image.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -111,6 +116,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PGlogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="alpha2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

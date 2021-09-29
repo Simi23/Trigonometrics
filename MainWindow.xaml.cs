@@ -31,7 +31,7 @@ namespace Trigonometrics {
         private static Line helperLine2;
 
         const int defaultWidth = 680;
-        const int defaultHeight = 480;
+        const int defaultHeight = 540;
         const int maxWidth = 1123;
         const int maxHeight = 920;
 
@@ -39,6 +39,7 @@ namespace Trigonometrics {
         public static bool ShowCos = true;
         public static bool ShowTan = true;
         public static bool ShowCot = true;
+        public static bool EnableSnapping = true;
 
         public static bool SinConnector = false;
         public static bool CosConnector = false;
@@ -83,6 +84,12 @@ namespace Trigonometrics {
             cotColor.Cursor = Cursors.Hand;
             cotColor.MouseLeftButtonDown += (sender, e) => {
                 ToggleCot(!ShowCot);
+            };
+
+            snappingToggle.Fill = Settings.snappingToggleBrush;
+            snappingToggle.Cursor = Cursors.Hand;
+            snappingToggle.MouseLeftButtonDown += (sender, e) => {
+                ToggleSnapping(!EnableSnapping);
             };
 
             funcSinCos.Cursor = Cursors.Hand;
@@ -189,7 +196,8 @@ namespace Trigonometrics {
                 new MathCollection.MathSin(),
                 new MathCollection.MathCos(),
                 new MathCollection.MathTan(),
-                new MathCollection.MathCot()
+                new MathCollection.MathCot(),
+                new MathCollection.CenterCircle(),
             };
 
             foreach (MathDefinition shapeCollection in shapesToDraw) {
@@ -210,18 +218,6 @@ namespace Trigonometrics {
                         Canvas.SetTop(shape, shapeParam.Top);
                     }
                     Canvas.SetZIndex(shape, shapeParam.IndexZ);
-                }
-            }
-
-            Dictionary<TextBlock, ShapeParams> textCollection = new MathCollection.TextCollection().GetTextCollection(CenterX, CenterY, mainCanvas.ActualWidth, mainCanvas.ActualHeight);
-            foreach (TextBlock textBlock in textCollection.Keys) {
-                ShapeParams shapeParam = textCollection[textBlock];
-                mainCanvas.Children.Add(textBlock);
-                if (shapeParam.ChangeLeft) {
-                    Canvas.SetLeft(textBlock, shapeParam.Left);
-                }
-                if (shapeParam.ChangeTop) {
-                    Canvas.SetTop(textBlock, shapeParam.Top);
                 }
             }
 
@@ -262,13 +258,19 @@ namespace Trigonometrics {
                     X2 = endX - 2,
                     Y2 = endY + 2,
                     Stroke = Settings.sinBrush,
-                    StrokeThickness = 2
+                    StrokeThickness = 2,
+                    StrokeDashArray = new DoubleCollection() { 4, 2 },
                 };
                 containerGrid.Children.Add(sinConnector);
                 Panel.SetZIndex(sinConnector, 10);
             }
 
-            if (TanConnector && Math.Abs(ConvertToDegrees(alpha)) % 90 != 0) {
+            bool canShowTan = Math.Abs(Math.Tan(alpha) * 100) <= 200;
+            if (!canShowTan) {
+                secRightCanvas.Children.Remove(rightKnob);
+                rightKnob = null;
+            }
+            if (TanConnector && Math.Abs(ConvertToDegrees(alpha)) % 90 != 0 && canShowTan) {
                 double startX = mainBorder.Margin.Left + CenterX + 100;
                 double startY = mainBorder.Margin.Top + CenterY - Math.Max(-200, Math.Min(Math.Tan(alpha) * 100, 200));
                 double endX = secRightBorder.Margin.Left + ShiftedCenterX + ConvertToDegrees(alpha);
@@ -296,7 +298,8 @@ namespace Trigonometrics {
                     X2 = endX,
                     Y2 = lineY,
                     Stroke = Settings.tanBrush,
-                    StrokeThickness = 2
+                    StrokeThickness = 2,
+                    StrokeDashArray = new DoubleCollection() { 4, 2 },
                 };
                 containerGrid.Children.Add(tanConnector);
                 Panel.SetZIndex(tanConnector, 10);
@@ -333,7 +336,8 @@ namespace Trigonometrics {
                     X2 = curveStartX,
                     Y2 = curveStartY,
                     Stroke = Settings.cosBrush,
-                    StrokeThickness = 2
+                    StrokeThickness = 2,
+                    StrokeDashArray = new DoubleCollection() { 4, 2 },
                 };
                 containerGrid.Children.Add(cosConnector1);
                 Panel.SetZIndex(cosConnector1, 10);
@@ -350,6 +354,7 @@ namespace Trigonometrics {
                 bezierPath.Stroke = Settings.cosBrush;
                 bezierPath.StrokeThickness = 2;
                 bezierPath.Uid = "connectorCosCurve";
+                bezierPath.StrokeDashArray = new DoubleCollection() { 4, 2 };
                 containerGrid.Children.Add(bezierPath);
 
 
@@ -361,13 +366,19 @@ namespace Trigonometrics {
                     X2 = knobX,
                     Y2 = knobY,
                     Stroke = Settings.cosBrush,
-                    StrokeThickness = 2
+                    StrokeThickness = 2,
+                    StrokeDashArray = new DoubleCollection() { 4, 2 },
                 };
                 containerGrid.Children.Add(cosConnector2);
                 Panel.SetZIndex(cosConnector2, 10);
             }
 
-            if (CotConnector && Math.Abs(ConvertToDegrees(alpha)) % 90 != 0) {
+            bool canShowCot = Math.Abs(1 / Math.Tan(alpha) * 100) <= 200;
+            if (!canShowCot) {
+                secBottomCanvas.Children.Remove(bottomKnob);
+                bottomKnob = null;
+            }
+            if (CotConnector && Math.Abs(ConvertToDegrees(alpha)) % 90 != 0 && canShowCot) {
                 // Bottom knob
                 double knobX = secBottomBorder.Margin.Left + ShiftedCenterX + ConvertToDegrees(alpha);
                 double knobY = secBottomBorder.Margin.Top + CenterY - Math.Max(-200, Math.Min(1 / Math.Tan(alpha) * 100, 200));
@@ -391,17 +402,18 @@ namespace Trigonometrics {
                 double curveStartX = line1X;
                 double curveStartY = secBottomBorder.Margin.Top;
 
-                Line cosConnector1 = new Line() {
+                Line cotConnector1 = new Line() {
                     Uid = "connectorCotLine1",
                     X1 = line1X,
                     Y1 = line1Y,
                     X2 = curveStartX,
                     Y2 = curveStartY,
                     Stroke = Settings.cotBrush,
-                    StrokeThickness = 2
+                    StrokeThickness = 2,
+                    StrokeDashArray = new DoubleCollection() { 4, 2 },
                 };
-                containerGrid.Children.Add(cosConnector1);
-                Panel.SetZIndex(cosConnector1, 10);
+                containerGrid.Children.Add(cotConnector1);
+                Panel.SetZIndex(cotConnector1, 10);
 
                 // Curve: bezier
                 double curveEndX = mainBorder.Margin.Left + mainBorder.ActualWidth;
@@ -415,21 +427,23 @@ namespace Trigonometrics {
                 bezierPath.Stroke = Settings.cotBrush;
                 bezierPath.StrokeThickness = 2;
                 bezierPath.Uid = "connectorCotCurve";
+                bezierPath.StrokeDashArray = new DoubleCollection() { 4, 2 };
                 containerGrid.Children.Add(bezierPath);
 
 
                 // Line: curveEnd -> bottomKnob
-                Line cosConnector2 = new Line() {
+                Line cotConnector2 = new Line() {
                     Uid = "connectorCotLine2",
                     X1 = curveEndX,
                     Y1 = curveEndY,
                     X2 = knobX,
                     Y2 = knobY,
                     Stroke = Settings.cotBrush,
-                    StrokeThickness = 2
+                    StrokeThickness = 2,
+                    StrokeDashArray = new DoubleCollection() { 4, 2 },
                 };
-                containerGrid.Children.Add(cosConnector2);
-                Panel.SetZIndex(cosConnector2, 10);
+                containerGrid.Children.Add(cotConnector2);
+                Panel.SetZIndex(cotConnector2, 10);
             }
         }
 
@@ -460,6 +474,12 @@ namespace Trigonometrics {
             if (IsDragging == true && e.LeftButton == MouseButtonState.Released) {
                 IsDragging = false;
                 Mouse.OverrideCursor = null;
+            }
+
+            double threshold = 4;
+            double distanceFrom15 = ConvertToDegrees(alpha) % 15;
+            if (EnableSnapping && (distanceFrom15 < threshold || distanceFrom15 > 15 - threshold)) {
+                alpha = ConvertToRadians(Math.Round(ConvertToDegrees(alpha) / 15) * 15);
             }
 
             if (IsDragging) {
@@ -591,8 +611,8 @@ namespace Trigonometrics {
             EnableConnectors(true, false);
             GenerateCanvasDrawing(Alpha);
 
-            ToggleSin(false);
-            ToggleCos(false);
+            ToggleSin(true);
+            ToggleCos(true);
             ToggleTan(false);
             ToggleCot(false);
         }
@@ -755,6 +775,16 @@ namespace Trigonometrics {
             }
 
             GenerateCanvasDrawing(Alpha);
+        }
+
+        private void ToggleSnapping(bool toggle) {
+            EnableSnapping = toggle;
+
+            if (toggle) {
+                snappingToggle.Fill = Settings.snappingToggleBrush;
+            } else {
+                snappingToggle.Fill = Settings.baseColorBrush;
+            }
         }
 
         private Path CreateBezierPath(List<Point> points) {

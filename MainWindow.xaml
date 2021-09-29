@@ -5,9 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Trigonometrics"
         mc:Ignorable="d"
-        Title="Trigonometrikus függvények" Height="480" Width="680" Loaded="Window_Loaded">
+        Title="Trigonometrikus függvények" Height="540" Width="680" Loaded="Window_Loaded" Icon="alpha2.png">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Image.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid x:Name="containerGrid">
-        <TextBox x:Name="angleInput" HorizontalAlignment="Left" Height="23" Margin="19,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" TextChanged="angleInput_TextChanged"/>
+        <TextBox x:Name="angleInput" HorizontalAlignment="Left" Height="22" Margin="127,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" TextChanged="angleInput_TextChanged"/>
         <Border x:Name="mainBorder" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="253,29,0,0" Height="400" Width="400" BorderBrush="Gray" BorderThickness="2">
             <StackPanel HorizontalAlignment="Left" Height="400" Margin="0,0,0,0" VerticalAlignment="Top" Width="400" ClipToBounds="True">
                 <Canvas x:Name="mainCanvas" HorizontalAlignment="Left" Height="400" Margin="0,0,0,0" VerticalAlignment="Top" Width="400" Background="White"/>
@@ -24,14 +31,14 @@
             </StackPanel>
         </Border>
         <Grid HorizontalAlignment="Left" Height="145" Margin="19,48,0,0" VerticalAlignment="Top" Width="183">
-            <Label x:Name="lb_sin" Content="Szinusz:" HorizontalAlignment="Left" Margin="20,11,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="lb_cos" Content="Koszinusz:" HorizontalAlignment="Left" Margin="20,42,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="lb_tg" Content="Tangens:" HorizontalAlignment="Left" Margin="20,73,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="lb_ctg" Content="Kotangens:" HorizontalAlignment="Left" Margin="20,104,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="lb_v_sin" Content="" HorizontalAlignment="Left" Margin="113,11,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="lb_v_cos" Content="" HorizontalAlignment="Left" Margin="113,42,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="lb_v_tg" Content="" HorizontalAlignment="Left" Margin="113,73,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="lb_v_ctg" Content="" HorizontalAlignment="Left" Margin="113,104,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="lb_sin" Content="A szög szinusza:" HorizontalAlignment="Left" Margin="20,11,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="lb_cos" Content="A szög koszinusza:" HorizontalAlignment="Left" Margin="20,42,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="lb_tg" Content="A szög tangense:" HorizontalAlignment="Left" Margin="20,73,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="lb_ctg" Content="A szög kotangense:" HorizontalAlignment="Left" Margin="20,104,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="lb_v_sin" Content="" HorizontalAlignment="Left" Margin="133,11,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="lb_v_cos" Content="" HorizontalAlignment="Left" Margin="133,42,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="lb_v_tg" Content="" HorizontalAlignment="Left" Margin="133,73,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="lb_v_ctg" Content="" HorizontalAlignment="Left" Margin="133,104,0,0" VerticalAlignment="Top"/>
             <Ellipse x:Name="sinColor" HorizontalAlignment="Left" Height="8" Margin="10,21,0,0" Stroke="Black" VerticalAlignment="Top" Width="8" RenderTransformOrigin="-0.333,2.778" StrokeThickness="0" Fill="#FFF4F4F5"/>
             <Ellipse x:Name="cosColor" HorizontalAlignment="Left" Height="8" Margin="10,52,0,0" Stroke="Black" VerticalAlignment="Top" Width="8" RenderTransformOrigin="-0.333,2.778" StrokeThickness="0" Fill="#FFF4F4F5"/>
             <Ellipse x:Name="tanColor" HorizontalAlignment="Left" Height="8" Margin="10,83,0,0" Stroke="Black" VerticalAlignment="Top" Width="8" RenderTransformOrigin="-0.333,2.778" StrokeThickness="0" Fill="#FFF4F4F5"/>
@@ -48,5 +55,14 @@
         </Grid>
         <Label x:Name="secRigthLabel" Content="PlaceHolder" HorizontalAlignment="Left" Margin="692,3,0,0" VerticalAlignment="Top" Height="26" Visibility="Hidden"/>
         <Label x:Name="secBottomLabel" Content="PlaceHolder" HorizontalAlignment="Left" Margin="692,442,0,0" VerticalAlignment="Top" Height="26" Visibility="Hidden"/>
+        <Label x:Name="lb_snapping" Content="Tapadás engedélyezése" HorizontalAlignment="Left" Margin="50,288,0,0" VerticalAlignment="Top"/>
+        <Ellipse x:Name="snappingToggle" HorizontalAlignment="Left" Height="12" Margin="27,296,0,0" Stroke="Black" VerticalAlignment="Top" Width="12" RenderTransformOrigin="-0.333,2.778" StrokeThickness="0" Fill="#FFF4F4F5"/>
+        <Label Content="A szög (fokban):" HorizontalAlignment="Left" Margin="27,11,0,0" VerticalAlignment="Top" Height="26" VerticalContentAlignment="Center"/>
+        <Image HorizontalAlignment="Left" Height="57" Margin="5,0,0,5" VerticalAlignment="Bottom" Width="425" Source="{StaticResource pglogoDrawingImage}"/>
+        <Label Content="Simon Tamás" HorizontalAlignment="Left" Margin="10,0,0,88" VerticalAlignment="Bottom" Padding="5,5,5,0" FontSize="16"/>
+        <Label Content="https://github.com/Simi23" HorizontalAlignment="Left" Margin="10,0,0,72" VerticalAlignment="Bottom" Padding="5,0"/>
+        <Label Content="2021" HorizontalAlignment="Left" Margin="112,0,0,88" VerticalAlignment="Bottom" Padding="5,5,5,0"/>
+
+
     </Grid>
 </Window>
