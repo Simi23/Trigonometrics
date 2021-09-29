@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Trigonometrics"
         mc:Ignorable="d"
         Title="Trigonometrikus függvények" Height="480" Width="680" Loaded="Window_Loaded">
-    <Grid>
+    <Grid x:Name="containerGrid">
         <TextBox x:Name="angleInput" HorizontalAlignment="Left" Height="23" Margin="19,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" TextChanged="angleInput_TextChanged"/>
         <Border x:Name="mainBorder" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="253,29,0,0" Height="400" Width="400" BorderBrush="Gray" BorderThickness="2">
             <StackPanel HorizontalAlignment="Left" Height="400" Margin="0,0,0,0" VerticalAlignment="Top" Width="400" ClipToBounds="True">

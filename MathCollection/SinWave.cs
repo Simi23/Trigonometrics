@@ -14,25 +14,20 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Trigonometrics.MathCollection
-{
-    class SinWave : MathDefinition
-    {
-        public Dictionary<Shape, ShapeParams> ShapeCollection(double CenterX, double CenterY, double alpha, double deg, double CanvasWidth, double CanvasHeight)
-        {
+namespace Trigonometrics.MathCollection {
+    class SinWave : MathDefinition {
+        public Dictionary<Shape, ShapeParams> ShapeCollection(double CenterX, double CenterY, double alpha, double deg, double CanvasWidth, double CanvasHeight) {
             Dictionary<Shape, ShapeParams> shapeCollection = new Dictionary<Shape, ShapeParams>();
 
             List<Point> points = new List<Point>();
 
-            for (int i = 0; i <= 361; i++)
-            {
+            for (int i = 0; i <= 361; i++) {
                 double rad = MainWindow.ConvertToRadians(i);
                 double sin = Math.Sin(rad);
                 points.Add(new Point(CenterX + i, CenterY - sin * 100));
             }
 
-            PolyQuadraticBezierSegment pqbz = new PolyQuadraticBezierSegment()
-            {
+            PolyQuadraticBezierSegment pqbz = new PolyQuadraticBezierSegment() {
                 Points = new PointCollection(points),
             };
 
@@ -49,14 +44,13 @@ namespace Trigonometrics.MathCollection
             PathGeometry pg = new PathGeometry();
             pg.Figures = pfc;
 
-            Path path = new Path()
-            {
+            Path path = new Path() {
                 Data = pg,
                 StrokeThickness = 3,
                 Stroke = Settings.circleBrush
             };
             shapeCollection.Add(path, new ShapeParams());
-            
+
             return shapeCollection;
         }
     }

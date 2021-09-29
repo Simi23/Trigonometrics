@@ -14,22 +14,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Trigonometrics.MathCollection
-{
-    class MathCos : MathDefinition
-    {
+namespace Trigonometrics.MathCollection {
+    class MathCos : MathDefinition {
         static Brush brush = Settings.cosBrush;
-        
-        public Dictionary<Shape, ShapeParams> ShapeCollection(double CenterX, double CenterY, double alpha, double deg, double CanvasWidth, double CanvasHeight)
-        {
+
+        public Dictionary<Shape, ShapeParams> ShapeCollection(double CenterX, double CenterY, double alpha, double deg, double CanvasWidth, double CanvasHeight) {
             Dictionary<Shape, ShapeParams> shapeCollection = new Dictionary<Shape, ShapeParams>();
 
             if (!MainWindow.ShowCos) {
                 return shapeCollection;
             }
 
-            Line cosShape = new Line()
-            {
+            Line cosShape = new Line() {
                 X1 = CenterX,
                 Y1 = CenterY,
 
@@ -38,14 +34,12 @@ namespace Trigonometrics.MathCollection
                 Stroke = brush,
                 StrokeThickness = 3
             };
-            ShapeParams cosDef = new ShapeParams()
-            {
+            ShapeParams cosDef = new ShapeParams() {
                 IndexZ = 1,
             };
             shapeCollection.Add(cosShape, cosDef);
 
-            Line cosHelperShape = new Line()
-            {
+            Line cosHelperShape = new Line() {
                 X1 = CenterX + Math.Cos(alpha) * 100,
                 Y1 = CenterY,
 
@@ -55,8 +49,7 @@ namespace Trigonometrics.MathCollection
                 StrokeDashArray = new DoubleCollection() { 6, 3 },
                 StrokeThickness = 1
             };
-            ShapeParams cosHelperDef = new ShapeParams()
-            {
+            ShapeParams cosHelperDef = new ShapeParams() {
                 IndexZ = 1,
             };
             shapeCollection.Add(cosHelperShape, cosHelperDef);

@@ -14,12 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Trigonometrics.MathCollection
-{
-    class MathCot : MathDefinition
-    {
-        public Dictionary<Shape, ShapeParams> ShapeCollection(double CenterX, double CenterY, double alpha, double deg, double CanvasWidth, double CanvasHeight)
-        {
+namespace Trigonometrics.MathCollection {
+    class MathCot : MathDefinition {
+        public Dictionary<Shape, ShapeParams> ShapeCollection(double CenterX, double CenterY, double alpha, double deg, double CanvasWidth, double CanvasHeight) {
             Dictionary<Shape, ShapeParams> shapeCollection = new Dictionary<Shape, ShapeParams>();
 
             if (!MainWindow.ShowCot) {
@@ -40,14 +37,13 @@ namespace Trigonometrics.MathCollection
             cotY1 = CenterY - 100;
             cotX2 = CenterX + cot * 100;
             cotY2 = CenterY - 100;
-            
+
 
             if (Math.Abs(deg) % 180 == 0) {
                 cotX2 = Math.Min(CanvasHeight, Math.Max(0, cotX2));
             }
 
-            Line cotLineShape = new Line()
-            {
+            Line cotLineShape = new Line() {
                 X1 = cotX1,
                 Y1 = cotY1,
 
@@ -56,15 +52,13 @@ namespace Trigonometrics.MathCollection
                 Stroke = Settings.cotBrush,
                 StrokeThickness = 3
             };
-            ShapeParams cotLineDef = new ShapeParams()
-            {
+            ShapeParams cotLineDef = new ShapeParams() {
                 IndexZ = 1
             };
             shapeCollection.Add(cotLineShape, cotLineDef);
 
             // Helper line
-            Line tanHelperShape = new Line()
-            {
+            Line tanHelperShape = new Line() {
                 X1 = CenterX,
                 Y1 = CenterY,
 
@@ -74,18 +68,16 @@ namespace Trigonometrics.MathCollection
                 StrokeDashArray = new DoubleCollection() { 6, 3 },
                 StrokeThickness = 1
             };
-            ShapeParams tanHelperDef = new ShapeParams()
-            {
+            ShapeParams tanHelperDef = new ShapeParams() {
                 IndexZ = -1
             };
             shapeCollection.Add(tanHelperShape, tanHelperDef);
-            
+
 
             return shapeCollection;
         }
 
-        public bool DetermineCotUp(double angle)
-        {
+        public bool DetermineCotUp(double angle) {
             double tempAngle = angle % 360;
             if (tempAngle < 0) {
                 tempAngle += 360;
@@ -93,20 +85,16 @@ namespace Trigonometrics.MathCollection
 
             if (tempAngle <= 90) {
                 return true;
-            }
-            else if (tempAngle < 180) {
+            } else if (tempAngle < 180) {
                 return true;
-            }
-            else if (tempAngle <= 270) {
+            } else if (tempAngle <= 270) {
                 return false;
-            }
-            else {
+            } else {
                 return false;
             }
         }
 
-        public bool DetermineShowCot(double angle)
-        {
+        public bool DetermineShowCot(double angle) {
             return Math.Abs(angle) % 90 != 0;
         }
     }

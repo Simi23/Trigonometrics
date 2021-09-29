@@ -14,17 +14,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Trigonometrics.MathCollection
-{
-    class Basics : MathDefinition
-    {
-        public Dictionary<Shape, ShapeParams> ShapeCollection(double CenterX, double CenterY, double alpha, double deg, double CanvasWidth, double CanvasHeight)
-        {
+namespace Trigonometrics.MathCollection {
+    class Basics : MathDefinition {
+        public Dictionary<Shape, ShapeParams> ShapeCollection(double CenterX, double CenterY, double alpha, double deg, double CanvasWidth, double CanvasHeight) {
             Dictionary<Shape, ShapeParams> shapeCollection = new Dictionary<Shape, ShapeParams>();
 
             // Coord line x
-            Line coordLineXShape = new Line()
-            {
+            Line coordLineXShape = new Line() {
                 X1 = 0,
                 Y1 = CenterY,
 
@@ -33,15 +29,13 @@ namespace Trigonometrics.MathCollection
                 Stroke = Settings.coordLineBrush,
                 StrokeThickness = 1,
             };
-            ShapeParams coordLineXDef = new ShapeParams()
-            {
+            ShapeParams coordLineXDef = new ShapeParams() {
                 IndexZ = -1
             };
             shapeCollection.Add(coordLineXShape, coordLineXDef);
 
             // Coord line y
-            Line coordLineYShape = new Line()
-            {
+            Line coordLineYShape = new Line() {
                 X1 = CenterX,
                 Y1 = 0,
 
@@ -50,8 +44,7 @@ namespace Trigonometrics.MathCollection
                 Stroke = Settings.coordLineBrush,
                 StrokeThickness = 1,
             };
-            ShapeParams coordLineYDef = new ShapeParams()
-            {
+            ShapeParams coordLineYDef = new ShapeParams() {
                 IndexZ = -1
             };
             shapeCollection.Add(coordLineYShape, coordLineYDef);
@@ -67,8 +60,7 @@ namespace Trigonometrics.MathCollection
             xTriangleShape.Stretch = Stretch.Fill;
             xTriangleShape.Width = 10;
             xTriangleShape.Height = 10;
-            ShapeParams xTriangleDef = new ShapeParams()
-            {
+            ShapeParams xTriangleDef = new ShapeParams() {
                 ChangeLeft = true,
                 ChangeTop = true,
                 Left = CanvasWidth - xTriangleShape.Width - 2,
@@ -76,7 +68,7 @@ namespace Trigonometrics.MathCollection
             };
             shapeCollection.Add(xTriangleShape, xTriangleDef);
 
-            
+
             PointCollection yTriangle = new PointCollection() {
                 new Point(-0.5, 1),
                 new Point(0, -1),
@@ -88,8 +80,7 @@ namespace Trigonometrics.MathCollection
             yTriangleShape.Stretch = Stretch.Fill;
             yTriangleShape.Width = 10;
             yTriangleShape.Height = 10;
-            ShapeParams yTriangleDef = new ShapeParams()
-            {
+            ShapeParams yTriangleDef = new ShapeParams() {
                 ChangeLeft = true,
                 ChangeTop = true,
                 Left = CenterX - yTriangleShape.Width / 2,

@@ -14,22 +14,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Trigonometrics.MathCollection
-{
-    class MathSin : MathDefinition
-    {
+namespace Trigonometrics.MathCollection {
+    class MathSin : MathDefinition {
         //237 28 36
         static Brush brush = Settings.sinBrush;
-        public Dictionary<Shape, ShapeParams> ShapeCollection(double CenterX, double CenterY, double alpha, double deg, double CanvasWidth, double CanvasHeight)
-        {
+        public Dictionary<Shape, ShapeParams> ShapeCollection(double CenterX, double CenterY, double alpha, double deg, double CanvasWidth, double CanvasHeight) {
             Dictionary<Shape, ShapeParams> shapeCollection = new Dictionary<Shape, ShapeParams>();
 
             if (!MainWindow.ShowSin) {
                 return shapeCollection;
             }
 
-            Line sinShape = new Line()
-            {
+            Line sinShape = new Line() {
                 X1 = CenterX,
                 Y1 = CenterY,
 
@@ -38,14 +34,12 @@ namespace Trigonometrics.MathCollection
                 Stroke = brush,
                 StrokeThickness = 3
             };
-            ShapeParams sinDef = new ShapeParams()
-            {
+            ShapeParams sinDef = new ShapeParams() {
                 IndexZ = 2,
             };
             shapeCollection.Add(sinShape, sinDef);
 
-            Line sinHelperShape = new Line()
-            {
+            Line sinHelperShape = new Line() {
                 X1 = CenterX,
                 Y1 = CenterY - Math.Sin(alpha) * 100,
 
@@ -55,8 +49,7 @@ namespace Trigonometrics.MathCollection
                 StrokeDashArray = new DoubleCollection() { 6, 3 },
                 StrokeThickness = 1
             };
-            ShapeParams sinHelperDef = new ShapeParams()
-            {
+            ShapeParams sinHelperDef = new ShapeParams() {
                 IndexZ = 1,
             };
             shapeCollection.Add(sinHelperShape, sinHelperDef);

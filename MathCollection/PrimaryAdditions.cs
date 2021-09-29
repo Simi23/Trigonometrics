@@ -5,24 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Shapes;
 
-namespace Trigonometrics.MathCollection
-{
-    class PrimaryAdditions : MathDefinition
-    {
-        public Dictionary<Shape, ShapeParams> ShapeCollection(double CenterX, double CenterY, double alpha, double deg, double CanvasWidth, double CanvasHeight)
-        {
+namespace Trigonometrics.MathCollection {
+    class PrimaryAdditions : MathDefinition {
+        public Dictionary<Shape, ShapeParams> ShapeCollection(double CenterX, double CenterY, double alpha, double deg, double CanvasWidth, double CanvasHeight) {
             Dictionary<Shape, ShapeParams> shapeCollection = new Dictionary<Shape, ShapeParams>();
 
             // Main Circle
-            Ellipse circleShape = new Ellipse()
-            {
+            Ellipse circleShape = new Ellipse() {
                 Width = 200,
                 Height = 200,
                 Stroke = Settings.circleBrush,
                 StrokeThickness = 3
             };
-            ShapeParams circleDef = new ShapeParams()
-            {
+            ShapeParams circleDef = new ShapeParams() {
                 IndexZ = 0,
                 Left = CenterX - 100,
                 Top = CenterY - 100,
@@ -32,8 +27,7 @@ namespace Trigonometrics.MathCollection
             shapeCollection.Add(circleShape, circleDef);
 
             // Base Line
-            Line baseLineShape = new Line()
-            {
+            Line baseLineShape = new Line() {
                 X1 = CenterX,
                 Y1 = CenterY,
 
@@ -42,15 +36,13 @@ namespace Trigonometrics.MathCollection
                 Stroke = Settings.baseColorBrush,
                 StrokeThickness = 2
             };
-            ShapeParams baseLineDef = new ShapeParams()
-            {
+            ShapeParams baseLineDef = new ShapeParams() {
                 IndexZ = 1
             };
             shapeCollection.Add(baseLineShape, baseLineDef);
 
             // Secondary Line
-            Line secLineShape = new Line()
-            {
+            Line secLineShape = new Line() {
                 X1 = CenterX,
                 Y1 = CenterY,
 
@@ -59,8 +51,7 @@ namespace Trigonometrics.MathCollection
                 Stroke = Settings.baseColorBrush,
                 StrokeThickness = 2
             };
-            ShapeParams secLineDef = new ShapeParams()
-            {
+            ShapeParams secLineDef = new ShapeParams() {
                 IndexZ = 1
             };
             shapeCollection.Add(secLineShape, secLineDef);

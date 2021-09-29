@@ -14,14 +14,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Trigonometrics.MathCollection
-{
-    class MathTan : MathDefinition
-    {
+namespace Trigonometrics.MathCollection {
+    class MathTan : MathDefinition {
         // 0 162 232
         static Brush brush = Settings.tanBrush;
-        public Dictionary<Shape, ShapeParams> ShapeCollection(double CenterX, double CenterY, double alpha, double deg, double CanvasWidth, double CanvasHeight)
-        {
+        public Dictionary<Shape, ShapeParams> ShapeCollection(double CenterX, double CenterY, double alpha, double deg, double CanvasWidth, double CanvasHeight) {
             Dictionary<Shape, ShapeParams> shapeCollection = new Dictionary<Shape, ShapeParams>();
 
             if (!MainWindow.ShowTan) {
@@ -29,7 +26,7 @@ namespace Trigonometrics.MathCollection
             }
 
             bool showTan = DetermineShowTan(deg);
-            
+
             double tanX1, tanX2, tanY1, tanY2;
 
             double tan = Math.Tan(alpha);
@@ -37,19 +34,18 @@ namespace Trigonometrics.MathCollection
             if (!showTan) {
                 return shapeCollection;
             }
-            
+
             tanX1 = CenterX + 100;
             tanY1 = CenterY;
             tanX2 = CenterX + 100;
             tanY2 = CenterY - tan * 100;
-            
+
 
             if (Math.Abs(deg) % 180 - 90 == 0) {
                 tanY2 = Math.Min(CanvasHeight, Math.Max(0, tanY2));
             }
 
-            Line tanLineShape = new Line()
-            {
+            Line tanLineShape = new Line() {
                 X1 = tanX1,
                 Y1 = tanY1,
 
@@ -64,8 +60,7 @@ namespace Trigonometrics.MathCollection
             shapeCollection.Add(tanLineShape, tanLineDef);
 
             // Helper line
-            Line tanHelperShape = new Line()
-            {
+            Line tanHelperShape = new Line() {
                 X1 = CenterX,
                 Y1 = CenterY,
 
@@ -75,18 +70,16 @@ namespace Trigonometrics.MathCollection
                 StrokeDashArray = new DoubleCollection() { 6, 3 },
                 StrokeThickness = 1
             };
-            ShapeParams tanHelperDef = new ShapeParams()
-            {
+            ShapeParams tanHelperDef = new ShapeParams() {
                 IndexZ = -1
             };
             shapeCollection.Add(tanHelperShape, tanHelperDef);
-            
+
 
             return shapeCollection;
         }
 
-        public bool DetermineShowTan(double angle)
-        {
+        public bool DetermineShowTan(double angle) {
             return Math.Abs(angle) % 90 != 0;
         }
     }
