@@ -111,13 +111,14 @@ namespace Trigonometrics {
                         ShowTanCotFunc = false;
                         Rectangle bgTanCot = funcTanCot.Children[0] as Rectangle;
                         bgTanCot.Fill = Settings.deactivatedToggleBrush;
+                    } else {
+                        ShowAdditionalElements();
                     }
 
                     ShowSinCosFunc = true;
                     Rectangle bg = funcSinCos.Children[0] as Rectangle;
                     bg.Fill = Settings.activatedToggleBrush;
 
-                    ShowAdditionalElements();
                     SetupSinCosProjection();
 
                     secRigthLabel.Content = "Szinusz függvény";
@@ -144,13 +145,14 @@ namespace Trigonometrics {
                         ShowSinCosFunc = false;
                         Rectangle bgSinCos = funcSinCos.Children[0] as Rectangle;
                         bgSinCos.Fill = Settings.deactivatedToggleBrush;
+                    } else {
+                        ShowAdditionalElements();
                     }
 
                     ShowTanCotFunc = true;
                     Rectangle bg = funcTanCot.Children[0] as Rectangle;
                     bg.Fill = Settings.activatedToggleBrush;
 
-                    ShowAdditionalElements();
                     SetupTanCotProjection();
 
                     secRigthLabel.Content = "Tangens függvény";

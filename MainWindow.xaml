@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Trigonometrics"
         mc:Ignorable="d"
+        x:Name="mainWindow"
         Title="Trigonometrikus függvények" Height="540" Width="680" Loaded="Window_Loaded" Icon="alpha2.png">
     <Window.Resources>
         <ResourceDictionary>
